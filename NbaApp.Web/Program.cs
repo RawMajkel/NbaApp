@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace NbaApp.AppRunner
+namespace NbaApp.Web
 {
     public class Program
     {
