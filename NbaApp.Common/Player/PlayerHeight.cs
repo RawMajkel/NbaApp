@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NbaApp.Common
 {
-    public class Team
+    public class PlayerHeight
     {
     }
 }

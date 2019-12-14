@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NbaApp.Persistance
+namespace NbaApp.Services
 {
     public class Class1
     {
