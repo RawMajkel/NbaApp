@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NbaApp.Common.Entities;
-using System;
 
 namespace NbaApp.Persistance
 {
@@ -13,5 +12,6 @@ namespace NbaApp.Persistance
 
         public virtual DbSet<Player> Players { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<Stats> Statistics { get; set; }
     }
 }

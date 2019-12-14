@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NbaApp.Common.Player
+namespace NbaApp.Common.Entities
 {
-    public class PlayerPosition
+    public class Stats
     {
         public Guid ID => Guid.NewGuid();
     }

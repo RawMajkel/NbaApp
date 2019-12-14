@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NbaApp.Common
+namespace NbaApp.Common.Player
 {
     public class PlayerHeight
     {
+        public Guid ID => Guid.NewGuid();
     }
 }

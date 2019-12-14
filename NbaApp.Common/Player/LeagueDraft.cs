@@ -4,8 +4,7 @@ using System.Text;
 
 namespace NbaApp.Common.Player
 {
-    public class PlayerPosition
+    public class LeagueDraft
     {
-        public Guid ID => Guid.NewGuid();
     }
 }

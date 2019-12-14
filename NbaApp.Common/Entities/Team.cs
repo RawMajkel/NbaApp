@@ -6,5 +6,6 @@ namespace NbaApp.Common.Entities
 {
     public class Team
     {
+        public Guid ID => Guid.NewGuid();
     }
 }
