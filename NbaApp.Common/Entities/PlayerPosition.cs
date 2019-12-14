@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NbaApp.Common.Entities
 {
-    public class Team
+    public class PlayerPosition
     {
         /* Properties */
         /* Auto-Implemented Properties */

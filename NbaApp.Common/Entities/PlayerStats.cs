@@ -4,8 +4,12 @@ using System.Text;
 
 namespace NbaApp.Common.Entities
 {
-    public class Stats
+    public class PlayerStats
     {
+        /* Properties */
+        /* Auto-Implemented Properties */
+        /* Constructors */
+        /* Methods */
         public Guid ID => Guid.NewGuid();
     }
 }
