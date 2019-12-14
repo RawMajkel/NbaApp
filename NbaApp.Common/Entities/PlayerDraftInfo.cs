@@ -8,6 +8,7 @@ namespace NbaApp.Common.Entities
         public int Year { get; set; }
         public int Round { get; set; }
         public int Pick { get; set; }
+        public Team Team { get; set; }
 
         /* Auto-Implemented Properties */
         public Guid ID => Guid.NewGuid();
