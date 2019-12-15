@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NbaApp.Persistance;
+using NbaApp.Services;
 
 namespace NbaApp.Web
 {
@@ -27,6 +28,8 @@ namespace NbaApp.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<NbaNetService>();
+
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("SqlConnectionString")));
@@ -35,8 +38,10 @@ namespace NbaApp.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, NbaNetService nbaNetService)
         {
+            nbaNetService.GetPlayerData("LeBron", "James").Wait();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
