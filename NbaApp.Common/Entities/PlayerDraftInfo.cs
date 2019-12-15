@@ -6,15 +6,15 @@ namespace NbaApp.Common.Entities
     {
         /* Properties */
         public int Year { get; set; }
-        public int Round { get; set; }
-        public int Pick { get; set; }
+        public byte Round { get; set; }
+        public byte Pick { get; set; }
         public Team Team { get; set; }
 
         /* Auto-Implemented Properties */
         public Guid ID => Guid.NewGuid();
 
         /* Constructors */
-        public PlayerDraftInfo(int year, int round, int pick)
+        public PlayerDraftInfo(int year, byte round, byte pick)
         {
             Year = year;
             Round = round;

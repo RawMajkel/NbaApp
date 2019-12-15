@@ -8,29 +8,29 @@ namespace NbaApp.Common.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public double HeightMetric { get; set; }
-        public int WeightKg { get; set; }
+        public float HeightMetric { get; set; }
+        public ushort WeightLbs { get; set; }
         public Team CurrentTeam { get; set; }
         public PlayerPersonalInfo PersonalInfo { get; set; }
-        public PlayerCareerInfo CareerInfo{ get; set; }
+        public PlayerCareerInfo CareerInfo { get; set; }
 
         /* Auto-Implemented Properties */
         public Guid ID => Guid.NewGuid();
         public int Age => DateTime.Now.Year - DateOfBirth.Year;
         public string HeightFeet => MetricToFeetAndInches();
-        public double WeightLbs => WeightKg * 2.20462262;
+        public float WeightKg => (float) (WeightLbs / 2.20462262);
 
         /* Constructors */
-        public Player(string firstName, string lastName, DateTime dateOfBirth, double heightMetric, int weightKg)
+        public Player(string firstName, string lastName, DateTime dateOfBirth, float heightMetric, ushort weightLbs)
         {
             FirstName = firstName;
             LastName = lastName;
             DateOfBirth = dateOfBirth;
             HeightMetric = heightMetric;
-            WeightKg = weightKg;
+            WeightLbs = weightLbs;
         }
 
-        public Player(string firstName, string lastName, DateTime dateOfBirth, double heightMetric, int weightKg, Team currentTeam, PlayerPersonalInfo personalInfo, PlayerCareerInfo careerInfo) : this(firstName, lastName, dateOfBirth, heightMetric, weightKg)
+        public Player(string firstName, string lastName, DateTime dateOfBirth, float heightMetric, ushort weightLbs, Team currentTeam, PlayerPersonalInfo personalInfo, PlayerCareerInfo careerInfo) : this(firstName, lastName, dateOfBirth, heightMetric, weightLbs)
         {
             CurrentTeam = currentTeam;
             PersonalInfo = personalInfo;

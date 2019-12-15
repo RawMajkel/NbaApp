@@ -6,9 +6,9 @@ namespace NbaApp.Common.Entities
     {
         /* Properties */
         public string LeagueStatus { get; set; }
-        public string HighSchool { get; set; }
         public string College { get; set; }
-        public string JerseyNumber { get; set; }
+        public string Country { get; set; }
+        public byte JerseyNumber { get; set; }
         public int Salary { get; set; }
         public PlayerDraftInfo Draft { get; set; }
         public PlayerPosition Position { get; set; }
@@ -18,11 +18,11 @@ namespace NbaApp.Common.Entities
         public int YearsPro => DateTime.Now.Year - Draft.Year;
 
         /* Constructors */
-        public PlayerCareerInfo(string leagueStatus, string highSchool, string college, string jerseyNumber, int salary, PlayerDraftInfo draft, PlayerPosition position)
+        public PlayerCareerInfo(string leagueStatus, string college, string country, byte jerseyNumber, int salary, PlayerDraftInfo draft, PlayerPosition position)
         {
             LeagueStatus = leagueStatus;
-            HighSchool = highSchool;
             College = college;
+            Country = country;
             JerseyNumber = jerseyNumber;
             Salary = salary;
             Draft = draft;
