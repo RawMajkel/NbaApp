@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace NbaApp.Common.Entities
 {
     public class PlayerStats
     {
+        /* Primary Key */
+        public Guid ID { get; set; } = Guid.NewGuid();
+
         /* Properties */
         public int GamesPlayed { get; set; }
         public int GamesStarted { get; set; }
@@ -25,7 +26,6 @@ namespace NbaApp.Common.Entities
         public int Turnovers { get; set; }
 
         /* Auto-Implemented Properties */
-        public Guid ID => Guid.NewGuid();
         public double MinutesPerGame => Minutes / GamesPlayed;
         public decimal FieldGoalPercentage => FieldGoalsMade / FieldGoalsAttempted;
         public decimal ThreePointersPercentage => ThreePointersMade / ThreePointersAttempted;
@@ -41,6 +41,11 @@ namespace NbaApp.Common.Entities
         public int PointsPerGame => Points / GamesPlayed;
 
         /* Constructors */
+        public PlayerStats()
+        {
+
+        }
+
         public PlayerStats(int gamesPlayed, int gamesStarted, int minutes, int fieldGoalsAttempted, int fieldGoalsMade, int threePointersAttempted, int threePointersMade, int freeThrowsAttempted, int freeThrowsMade)
         {
             GamesPlayed = gamesPlayed;

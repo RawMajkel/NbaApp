@@ -12,28 +12,28 @@ namespace NbaApp.Services.NbaNet
         public string LastName { get; set; }
 
         [JsonPropertyName("personId")]
-        public int PersonID { get; set; }
+        public string PersonID { get; set; }
 
         [JsonPropertyName("teamId")]
-        public int TeamID { get; set; }
+        public string TeamID { get; set; }
 
         [JsonPropertyName("jersey")]
-        public byte JerseyNumber { get; set; }
+        public string JerseyNumber { get; set; }
 
         [JsonPropertyName("pos")]
         public string Position { get; set; }
 
         [JsonPropertyName("heightMeters")]
-        public float HeightMetric { get; set; }
+        public string HeightMetric { get; set; }
 
         [JsonPropertyName("weightPounds")]
-        public ushort WeightLbs { get; set; }
+        public string WeightLbs { get; set; }
 
         [JsonPropertyName("dateOfBirthUTC")]
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         [JsonPropertyName("draft")]
-        public int Draft { get; set; }
+        public NbaNetDraft Draft { get; set; }
 
         [JsonPropertyName("collegeName")]
         public string College { get; set; }

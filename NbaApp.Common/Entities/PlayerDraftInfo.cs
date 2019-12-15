@@ -4,17 +4,22 @@ namespace NbaApp.Common.Entities
 {
     public class PlayerDraftInfo
     {
+        /* Primary Key */
+        public Guid ID { get; set; } = Guid.NewGuid();
+
         /* Properties */
-        public int Year { get; set; }
-        public byte Round { get; set; }
-        public byte Pick { get; set; }
+        public ushort Year { get; set; }
+        public ushort Round { get; set; }
+        public ushort Pick { get; set; }
         public Team Team { get; set; }
 
-        /* Auto-Implemented Properties */
-        public Guid ID => Guid.NewGuid();
-
         /* Constructors */
-        public PlayerDraftInfo(int year, byte round, byte pick)
+        public PlayerDraftInfo()
+        {
+
+        }
+
+        public PlayerDraftInfo(ushort year, ushort round, ushort pick)
         {
             Year = year;
             Round = round;

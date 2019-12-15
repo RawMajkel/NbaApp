@@ -1,19 +1,20 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace NbaApp.Services.NbaNet
 {
     public class NbaNetDraft
     {
         [JsonPropertyName("teamId")]
-        public int TeamID { get; set; }
+        public string TeamID { get; set; }
 
         [JsonPropertyName("pickNum")]
-        public byte Pick { get; set; }
+        public ushort Pick => Convert.ToUInt16(Pick);
 
         [JsonPropertyName("roundNum")]
-        public byte Round { get; set; }
+        public ushort Round => Convert.ToUInt16(Round);
 
         [JsonPropertyName("seasonYear")]
-        public int Year { get; set; }
+        public ushort Year => Convert.ToUInt16(Year);
     }
 }

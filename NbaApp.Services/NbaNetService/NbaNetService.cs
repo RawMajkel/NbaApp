@@ -4,6 +4,9 @@ using NbaApp.Common.Entities;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Net;
+using System;
+using System.Globalization;
 
 namespace NbaApp.Services
 {
@@ -11,16 +14,23 @@ namespace NbaApp.Services
     {
         /* Fields */
         private readonly Context _context;
-        private readonly NbaNetPlayers _jsonData;
+        private readonly NbaNetData _jsonData;
 
         /* Constructors */
         public NbaNetService(Context context)
         {
             _context = context;
 
-            // TODO: Not working
-            string jsonString = JsonSerializer.Serialize("https://data.nba.net/prod/v1/2019/players.json");
-            _jsonData = JsonSerializer.Deserialize<NbaNetPlayers>(jsonString);
+            using WebClient client = new WebClient();
+            string json = client.DownloadString("https://data.nba.net/prod/v1/2019/players.json");
+
+            var options = new JsonSerializerOptions
+            {
+                IgnoreNullValues = true,
+                WriteIndented = true
+            };
+
+            _jsonData = JsonSerializer.Deserialize<NbaNetData>(json, options);
         }
 
         /* Methods */
@@ -28,12 +38,13 @@ namespace NbaApp.Services
         {
             var player = _jsonData.League.Players
                 .Where(x => x.FirstName == firstName && x.LastName == lastName)
-                .Select(x => new Player ( 
+                .Select(x => new Player(
                     x.FirstName,
                     x.LastName,
-                    x.DateOfBirth,
-                    x.HeightMetric,
-                    x.WeightLbs
+                    Convert.ToDateTime(x.DateOfBirth),
+                    float.Parse(x.HeightMetric, CultureInfo.InvariantCulture.NumberFormat),
+                    Convert.ToUInt16(x.WeightLbs),
+                    x.PersonID
                 ))
                 .FirstOrDefault();
 

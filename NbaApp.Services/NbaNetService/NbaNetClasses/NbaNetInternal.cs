@@ -6,6 +6,7 @@ namespace NbaApp.Services.NbaNet
     public class NbaNetInternal
     {
         [JsonPropertyName("pubDateTime")]
-        public DateTime PublicationDate { get; set; }
+        private string PrivatePublicationDate => PrivatePublicationDate.Substring(PrivatePublicationDate.Length - 3);
+        public DateTime PublicationDate => Convert.ToDateTime(PrivatePublicationDate);
     }
 }

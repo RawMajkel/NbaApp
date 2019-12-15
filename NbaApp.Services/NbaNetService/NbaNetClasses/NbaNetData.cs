@@ -2,7 +2,7 @@
 
 namespace NbaApp.Services.NbaNet
 {
-    public class NbaNetPlayers
+    public class NbaNetData
     {
         [JsonPropertyName("_internal")]
         public NbaNetInternal Internal { get; set; }
