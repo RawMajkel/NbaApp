@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace NbaApp.Services.NbaNet
+namespace NbaApp.Services.NbaNetClasses
 {
-    public class NbaNetData
+    public class NbaNetPlayersData
     {
         [JsonPropertyName("_internal")]
         public NbaNetInternal Internal { get; set; }

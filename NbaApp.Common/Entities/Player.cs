@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NbaApp.Common.Entities
@@ -10,8 +9,6 @@ namespace NbaApp.Common.Entities
     public class Player
     {
         /* Properties */
-
-        [Key]
         public Guid PlayerID { get; set; } = Guid.NewGuid();
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -21,7 +18,7 @@ namespace NbaApp.Common.Entities
         public int Age { get; set; }
         public string HeightFeet { get; set; }
         public float WeightKg { get; set; }
-        public Team CurrentTeam { get; set; }
+        public Guid CurrentTeam { get; set; }
         public PlayerStats Stats { get; set; }
         public PlayerPersonalInfo PersonalInfo { get; set; }
         public PlayerCareerInfo CareerInfo { get; set; }

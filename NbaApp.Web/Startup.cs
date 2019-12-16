@@ -36,6 +36,7 @@ namespace NbaApp.Web
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
+            nbaNetService.LoadTeams().Wait();
             nbaNetService.LoadPlayerData("LeBron", "James").Wait();
 
             if (env.IsDevelopment())

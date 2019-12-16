@@ -2,7 +2,8 @@
 
 namespace NbaApp.Services
 {
-    public class Class1
+    public class ApiService
     {
+
     }
 }

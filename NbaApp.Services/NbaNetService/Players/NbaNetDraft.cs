@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-namespace NbaApp.Services.NbaNet
+namespace NbaApp.Services.NbaNetClasses
 {
     public class NbaNetDraft
     {
