@@ -2,7 +2,7 @@
 
 namespace NbaApp.Common.Entities
 {
-    public class PlayerStats
+    public class PlayerStatsInfo
     {
         /* Properties */
         public Guid ID { get; set; } = Guid.NewGuid();
@@ -37,12 +37,12 @@ namespace NbaApp.Common.Entities
         public int PointsPerGame { get; set; }
 
         /* Constructors */
-        public PlayerStats()
+        public PlayerStatsInfo()
         {
 
         }
 
-        public PlayerStats(int gamesPlayed, int gamesStarted, int minutes, int fieldGoalsAttempted, int fieldGoalsMade, int threePointersAttempted, int threePointersMade, int freeThrowsAttempted, int freeThrowsMade)
+        public PlayerStatsInfo(int gamesPlayed, int gamesStarted, int minutes, int fieldGoalsAttempted, int fieldGoalsMade, int threePointersAttempted, int threePointersMade, int freeThrowsAttempted, int freeThrowsMade)
         {
             GamesPlayed = gamesPlayed;
             GamesStarted = gamesStarted;
@@ -69,7 +69,7 @@ namespace NbaApp.Common.Entities
             PointsPerGame = Points / GamesPlayed;
         }
 
-        public PlayerStats(int gamesPlayed, int gamesStarted, int minutes, int fieldGoalsAttempted, int fieldGoalsMade, int threePointersAttempted, int threePointersMade, int freeThrowsAttempted, int freeThrowsMade, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int steals, int fouls, int turnovers)
+        public PlayerStatsInfo(int gamesPlayed, int gamesStarted, int minutes, int fieldGoalsAttempted, int fieldGoalsMade, int threePointersAttempted, int threePointersMade, int freeThrowsAttempted, int freeThrowsMade, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int steals, int fouls, int turnovers)
             : this(gamesPlayed, gamesStarted, minutes, fieldGoalsAttempted, fieldGoalsMade, threePointersAttempted, threePointersMade, freeThrowsAttempted, freeThrowsMade)
         {
             OffensiveRebounds = offensiveRebounds;

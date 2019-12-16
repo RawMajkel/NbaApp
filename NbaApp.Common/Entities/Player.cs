@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NbaApp.Common.Entities
 {
@@ -10,21 +9,19 @@ namespace NbaApp.Common.Entities
     {
         /* Properties */
         public Guid PlayerID { get; set; } = Guid.NewGuid();
+        public string NbaNetID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public float HeightMetric { get; set; }
-        public ushort WeightLbs { get; set; }
         public int Age { get; set; }
-        public string HeightFeet { get; set; }
-        public float WeightKg { get; set; }
+        public float HeightMetric { get; set; }
+        public ushort HeightFeet { get; set; }
+        public float HeightInches { get; set; }
+        public ushort WeightPounds { get; set; }
+        public float WeightKilograms { get; set; }
         public Guid CurrentTeam { get; set; }
-        public PlayerStats Stats { get; set; }
-        public PlayerPersonalInfo PersonalInfo { get; set; }
+        public PlayerStatsInfo Stats { get; set; }
         public PlayerCareerInfo CareerInfo { get; set; }
-
-        [NotMapped]
-        public string NbaNetID { get; set; }
 
         /* Constructors */
         public Player()
@@ -32,33 +29,29 @@ namespace NbaApp.Common.Entities
 
         }
 
-        public Player(string firstName, string lastName, DateTime dateOfBirth, float heightMetric, ushort weightLbs, string nbaNetId = null)
+        public Player(string firstName, string lastName, DateTime dateOfBirth, float heightMetric, ushort weightLbs, Guid currentTeam, string nbaNetId)
         {
             FirstName = firstName;
             LastName = lastName;
             DateOfBirth = dateOfBirth;
             HeightMetric = heightMetric;
-            WeightLbs = weightLbs;
+            WeightPounds = weightLbs;
+            CurrentTeam = currentTeam;
             NbaNetID = nbaNetId;
 
             Age = DateTime.Now.Year - DateOfBirth.Year;
-            HeightFeet = MetricToFeetAndInches();
-            WeightKg = (float)(WeightLbs / 2.20462262);
+            HeightFeet = Convert.ToUInt16(Math.Floor(HeightMetric * 0.393700787 * 100 / 12));
+            HeightInches = (float)(HeightMetric * 0.393700787 * 100 % 12);
+            WeightKilograms = (float)(WeightPounds / 2.20462262);
         }
 
-        public Player(string firstName, string lastName, DateTime dateOfBirth, float heightMetric, ushort weightLbs, Team currentTeam, PlayerStats stats, PlayerPersonalInfo personalInfo, PlayerCareerInfo careerInfo, string nbaNetId = null) : this(firstName, lastName, dateOfBirth, heightMetric, weightLbs, nbaNetId)
+        public Player(string firstName, string lastName, DateTime dateOfBirth, float heightMetric, ushort weightLbs, Guid currentTeam, PlayerCareerInfo careerInfo, string nbaNetId) : this(firstName, lastName, dateOfBirth, heightMetric, weightLbs, currentTeam, nbaNetId)
         {
-            CurrentTeam = currentTeam;
-            Stats = stats;
-            PersonalInfo = personalInfo;
             CareerInfo = careerInfo;
         }
 
         /* Methods */
-        private string MetricToFeetAndInches()
-        {
-            double inches = HeightMetric * 0.393700787 * 100;
-            return $"{(int) inches / 12}' {(int) inches % 12}\"";
-        }
+        public void AddCareerInfo(PlayerCareerInfo careerInfo) => CareerInfo = careerInfo;
+        public void AddStatsInfo(PlayerStatsInfo stats) => Stats = stats;
     }
 }

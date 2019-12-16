@@ -64,17 +64,33 @@ namespace NbaApp.Services
         {
             var player = _jsonData.League.Players
                 .Where(x => x.FirstName == firstName && x.LastName == lastName)
-                .Select(x => new Player(
-                    x.FirstName,
-                    x.LastName,
-                    Convert.ToDateTime(x.DateOfBirth),
-                    float.Parse(x.HeightMetric, CultureInfo.InvariantCulture.NumberFormat),
-                    Convert.ToUInt16(x.WeightLbs),
-                    x.PersonID
-                ))
+                .Select(x => new PlayerInfo(
+                    new Player(
+                        x.FirstName,
+                        x.LastName,
+                        DateTime.ParseExact(x.DateOfBirth, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        float.Parse(x.HeightMetric, CultureInfo.InvariantCulture.NumberFormat),
+                        Convert.ToUInt16(x.WeightLbs),
+                        GetTeamID(x.TeamID),
+                        x.PersonID
+                    ),
+                    new PlayerCareerInfo(
+                        x.College,
+                        x.Country,
+                        Convert.ToUInt16(x.JerseyNumber),
+                        x.Position,
+                        Convert.ToUInt16(x.Draft.Year),
+                        Convert.ToUInt16(x.Draft.Round),
+                        Convert.ToUInt16(x.Draft.Pick),
+                        GetTeamID(x.Draft.TeamID)
+                    )
+                 ))
                 .FirstOrDefault();
 
-            _context.Players.Add(player);
+            player.Player.AddCareerInfo(player.PlayerCareerInfo);
+
+            _context.Players.Add(player.Player);
+            _context.PlayersCareerInfos.Add(player.PlayerCareerInfo);
 
             /* Stats */
             //LoadPlayerStats(player.NbaNetID).Wait();
@@ -89,6 +105,14 @@ namespace NbaApp.Services
 
             var statsData = JsonSerializer.Deserialize<NbaNetPlayersData>(statsJson, _options);
             await _context.SaveChangesAsync();
+        }
+
+        public Guid GetTeamID(string nbaNetId)
+        {
+            return _context.Teams
+                .Where(x => x.NbaNetID == nbaNetId)
+                .Select(x => x.ID)
+                .FirstOrDefault();
         }
     }
 }

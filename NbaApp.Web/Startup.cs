@@ -38,6 +38,8 @@ namespace NbaApp.Web
 
             nbaNetService.LoadTeams().Wait();
             nbaNetService.LoadPlayerData("LeBron", "James").Wait();
+            nbaNetService.LoadPlayerData("Jayson", "Tatum").Wait();
+            nbaNetService.LoadPlayerData("Jaylen", "Brown").Wait();
 
             if (env.IsDevelopment())
             {

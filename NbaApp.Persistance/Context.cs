@@ -11,10 +11,8 @@ namespace NbaApp.Persistance
         }
 
         public virtual DbSet<Player> Players { get; set; }
-        public virtual DbSet<PlayerPersonalInfo> PlayersPersonalInfos { get; set; }
-        public virtual DbSet<PlayerCareerInfo> PlayersCareerInfos { get; set; }
-        public virtual DbSet<PlayerDraftInfo> PlayersDraftInfos { get; set; }
+        public virtual DbSet<PlayerCareerInfo> PlayersInfos { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
-        public virtual DbSet<PlayerStats> Statistics { get; set; }
+        public virtual DbSet<PlayerStatsInfo> Statistics { get; set; }
     }
 }

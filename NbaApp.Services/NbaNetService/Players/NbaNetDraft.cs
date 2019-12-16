@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace NbaApp.Services.NbaNetClasses
 {
@@ -9,12 +8,12 @@ namespace NbaApp.Services.NbaNetClasses
         public string TeamID { get; set; }
 
         [JsonPropertyName("pickNum")]
-        public ushort Pick => Convert.ToUInt16(Pick);
+        public string Pick { get; set; }
 
         [JsonPropertyName("roundNum")]
-        public ushort Round => Convert.ToUInt16(Round);
+        public string Round { get; set; }
 
         [JsonPropertyName("seasonYear")]
-        public ushort Year => Convert.ToUInt16(Year);
+        public string Year { get; set; }
     }
 }

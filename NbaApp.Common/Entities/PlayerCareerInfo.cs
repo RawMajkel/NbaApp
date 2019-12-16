@@ -6,14 +6,15 @@ namespace NbaApp.Common.Entities
     {
         /* Properties */
         public Guid ID { get; set; } = Guid.NewGuid();
-        public string LeagueStatus { get; set; }
         public string College { get; set; }
         public string Country { get; set; }
         public ushort JerseyNumber { get; set; }
-        public int Salary { get; set; }
         public int YearsPro { get; set; }
-        public PlayerDraftInfo Draft { get; set; }
-        public PlayerPosition Position { get; set; }
+        public string Position { get; set; }
+        public ushort DraftYear { get; set; }
+        public ushort DraftRound { get; set; }
+        public ushort DraftPick { get; set; }
+        public Guid DraftTeam { get; set; }
 
         /* Constructors */
         public PlayerCareerInfo()
@@ -21,17 +22,18 @@ namespace NbaApp.Common.Entities
 
         }
 
-        public PlayerCareerInfo(string leagueStatus, string college, string country, ushort jerseyNumber, int salary, PlayerDraftInfo draft, PlayerPosition position)
+        public PlayerCareerInfo(string college, string country, ushort jerseyNumber, string position, ushort draftYear, ushort draftRound, ushort draftPick, Guid draftTeam)
         {
-            LeagueStatus = leagueStatus;
             College = college;
             Country = country;
             JerseyNumber = jerseyNumber;
-            Salary = salary;
-            Draft = draft;
             Position = position;
+            DraftYear = draftYear;
+            DraftRound = draftRound;
+            DraftPick = draftPick;
+            DraftTeam = draftTeam;
 
-            YearsPro = DateTime.Now.Year - Draft.Year;
+            YearsPro = DateTime.Now.Year - DraftYear;
         }
     }
 }
