@@ -4,7 +4,9 @@ using System.Text;
 
 namespace NbaApp.Common.Consts
 {
-    public class Conferences
+    public static class Conferences
     {
+        public static readonly string Eastern = "Eastern Conference";
+        public static readonly string Western = "Western Conference";
     }
 }
