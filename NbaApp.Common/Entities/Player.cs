@@ -8,12 +8,16 @@ namespace NbaApp.Common.Entities
         public Guid ID { get; set; } = Guid.NewGuid();
 
         /* Properties and fields */
-        private string _nbaNetID;
+        private readonly string _nbaNetID;
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public float HeightMetric { get; set; }
         public ushort WeightLbs { get; set; }
+
+        /* IMAGE https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2544.png */
+        /* STATS https://data.nba.net/prod/v1/2019/players/1628369_profile.json */
+
         public Team CurrentTeam { get; set; }
         public PlayerPersonalInfo PersonalInfo { get; set; }
         public PlayerCareerInfo CareerInfo { get; set; }
@@ -51,6 +55,11 @@ namespace NbaApp.Common.Entities
         {
             double inches = HeightMetric * 0.393700787;
             return $"{(int) inches / 12}' {(int) inches % 12}\"";
+        }
+
+        public string GetNbaNetID()
+        {
+            return _nbaNetID;
         }
     }
 }
