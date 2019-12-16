@@ -34,7 +34,7 @@ namespace NbaApp.Services
         }
 
         /* Methods */
-        public async Task GetPlayerData(string firstName, string lastName)
+        public async Task LoadPlayerData(string firstName, string lastName)
         {
             var player = _jsonData.League.Players
                 .Where(x => x.FirstName == firstName && x.LastName == lastName)
@@ -47,6 +47,8 @@ namespace NbaApp.Services
                     x.PersonID
                 ))
                 .FirstOrDefault();
+
+            Console.WriteLine(player.GetNbaNetID());
 
             _context.Players.Add(player);
             await _context.SaveChangesAsync();
