@@ -48,8 +48,6 @@ namespace NbaApp.Services
                 ))
                 .FirstOrDefault();
 
-            Console.WriteLine(player.GetNbaNetID());
-
             _context.Players.Add(player);
             await _context.SaveChangesAsync();
         }

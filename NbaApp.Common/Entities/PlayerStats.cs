@@ -4,10 +4,8 @@ namespace NbaApp.Common.Entities
 {
     public class PlayerStats
     {
-        /* Primary Key */
-        public Guid ID { get; set; } = Guid.NewGuid();
-
         /* Properties */
+        public Guid ID { get; set; } = Guid.NewGuid();
         public int GamesPlayed { get; set; }
         public int GamesStarted { get; set; }
         public int Minutes { get; set; }
@@ -24,21 +22,19 @@ namespace NbaApp.Common.Entities
         public int Steals { get; set; }
         public int Fouls { get; set; }
         public int Turnovers { get; set; }
-
-        /* Auto-Implemented Properties */
-        public double MinutesPerGame => Minutes / GamesPlayed;
-        public decimal FieldGoalPercentage => FieldGoalsMade / FieldGoalsAttempted;
-        public decimal ThreePointersPercentage => ThreePointersMade / ThreePointersAttempted;
-        public decimal FreeThrowsPercentage => FreeThrowsMade / FreeThrowsAttempted;
-        public int Rebounds => DefensiveRebounds + OffensiveRebounds;
-        public double ReboundsPerGame => Rebounds / GamesPlayed;
-        public double AssistsPerGame => Assists / GamesPlayed;
-        public double BlocksPerGame => Blocks / GamesPlayed;
-        public double StealsPerGame => Steals / GamesPlayed;
-        public double FoulsPerGame => Fouls / GamesPlayed;
-        public double TurnoversPerGame => Turnovers / GamesPlayed;
-        public int Points => (FieldGoalsMade - ThreePointersMade) * 2 + ThreePointersMade * 3 + FreeThrowsMade;
-        public int PointsPerGame => Points / GamesPlayed;
+        public double MinutesPerGame { get; set; }
+        public decimal FieldGoalPercentage { get; set; }
+        public decimal ThreePointersPercentage { get; set; }
+        public decimal FreeThrowsPercentage { get; set; }
+        public int Rebounds { get; set; }
+        public double ReboundsPerGame { get; set; }
+        public double AssistsPerGame { get; set; }
+        public double BlocksPerGame { get; set; }
+        public double StealsPerGame { get; set; }
+        public double FoulsPerGame { get; set; }
+        public double TurnoversPerGame { get; set; }
+        public int Points { get; set; }
+        public int PointsPerGame { get; set; }
 
         /* Constructors */
         public PlayerStats()
@@ -57,6 +53,20 @@ namespace NbaApp.Common.Entities
             ThreePointersMade = threePointersMade;
             FreeThrowsAttempted = freeThrowsAttempted;
             FreeThrowsMade = freeThrowsMade;
+
+            MinutesPerGame = Minutes / GamesPlayed;
+            FieldGoalPercentage = FieldGoalsMade / FieldGoalsAttempted;
+            ThreePointersPercentage = ThreePointersMade / ThreePointersAttempted;
+            FreeThrowsPercentage = FreeThrowsMade / FreeThrowsAttempted;
+            Rebounds = DefensiveRebounds + OffensiveRebounds;
+            ReboundsPerGame = Rebounds / GamesPlayed;
+            AssistsPerGame = Assists / GamesPlayed;
+            BlocksPerGame = Blocks / GamesPlayed;
+            StealsPerGame = Steals / GamesPlayed;
+            FoulsPerGame = Fouls / GamesPlayed;
+            TurnoversPerGame = Turnovers / GamesPlayed;
+            Points = (FieldGoalsMade - ThreePointersMade) * 2 + ThreePointersMade * 3 + FreeThrowsMade;
+            PointsPerGame = Points / GamesPlayed;
         }
 
         public PlayerStats(int gamesPlayed, int gamesStarted, int minutes, int fieldGoalsAttempted, int fieldGoalsMade, int threePointersAttempted, int threePointersMade, int freeThrowsAttempted, int freeThrowsMade, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int steals, int fouls, int turnovers)

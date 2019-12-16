@@ -6,10 +6,8 @@ namespace NbaApp.Common.Entities
 {
     public class Team
     {
-        /* Primary Key */
-        public Guid ID { get; set; } = Guid.NewGuid();
-
         /* Properties */
+        public Guid ID { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
         public string Abbreviation { get; set; }
         public string Conference { get; set; }

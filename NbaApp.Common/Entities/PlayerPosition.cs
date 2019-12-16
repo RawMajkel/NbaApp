@@ -4,10 +4,8 @@ namespace NbaApp.Common.Entities
 {
     public class PlayerPosition
     {
-        /* Primary Key */
-        public Guid ID { get; set; } = Guid.NewGuid();
-
         /* Properties */
+        public Guid ID { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
         public string Abbreviation { get; set; }
 

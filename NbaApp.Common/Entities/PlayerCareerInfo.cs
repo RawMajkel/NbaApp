@@ -4,20 +4,16 @@ namespace NbaApp.Common.Entities
 {
     public class PlayerCareerInfo
     {
-        /* Primary Key */
-        public Guid ID { get; set; } = Guid.NewGuid();
-
         /* Properties */
+        public Guid ID { get; set; } = Guid.NewGuid();
         public string LeagueStatus { get; set; }
         public string College { get; set; }
         public string Country { get; set; }
         public ushort JerseyNumber { get; set; }
         public int Salary { get; set; }
+        public int YearsPro { get; set; }
         public PlayerDraftInfo Draft { get; set; }
         public PlayerPosition Position { get; set; }
-
-        /* Auto-Implemented Properties */
-        public int YearsPro => DateTime.Now.Year - Draft.Year;
 
         /* Constructors */
         public PlayerCareerInfo()
@@ -34,6 +30,8 @@ namespace NbaApp.Common.Entities
             Salary = salary;
             Draft = draft;
             Position = position;
+
+            YearsPro = DateTime.Now.Year - Draft.Year;
         }
     }
 }

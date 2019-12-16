@@ -6,5 +6,6 @@ namespace NbaApp.Common.Entities
 {
     public class TeamHistory
     {
+
     }
 }

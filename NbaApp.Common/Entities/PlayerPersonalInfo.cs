@@ -4,10 +4,8 @@ namespace NbaApp.Common.Entities
 {
     public class PlayerPersonalInfo
     {
-        /* Primary Key */
-        public Guid ID { get; set; } = Guid.NewGuid();
-
         /* Properties */
+        public Guid ID { get; set; } = Guid.NewGuid();
         public string Nationality { get; set; }
         public string HomeCity { get; set; }
         public string HomeCountry { get; set; }
