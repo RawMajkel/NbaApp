@@ -4,25 +4,25 @@ namespace NbaApp.Services.NbaNetClasses
 {
     public class NbaNetTeam
     {
-        [JsonPropertyName("is_nba_team")]
-        public bool IsNbaTeam { get; set; }
+        [JsonPropertyName("isNBAFranchise")]
+        public bool IsNbaFranchise { get; set; }
 
-        [JsonPropertyName("team_name")]
+        [JsonPropertyName("altCityName")]
         public string Name { get; set; }
 
-        [JsonPropertyName("team_nickname")]
+        [JsonPropertyName("nickname")]
         public string NickName { get; set; }
 
-        [JsonPropertyName("team_abbrev")]
+        [JsonPropertyName("tricode")]
         public string Abbreviation { get; set; }
 
-        [JsonPropertyName("team_id")]
-        public int Id { get; set; }
+        [JsonPropertyName("teamId")]
+        public string Id { get; set; }
 
-        [JsonPropertyName("conference")]
+        [JsonPropertyName("confName")]
         public string Conference { get; set; }
 
-        [JsonPropertyName("division_id")]
+        [JsonPropertyName("divName")]
         public string Division { get; set; }
     }
 }

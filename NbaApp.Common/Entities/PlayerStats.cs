@@ -2,13 +2,24 @@
 
 namespace NbaApp.Common.Entities
 {
-    public class PlayerStatsInfo
+    public class PlayerStats
     {
         /* Properties */
         public Guid ID { get; set; } = Guid.NewGuid();
+
+        /* --- basic --- */
         public int GamesPlayed { get; set; }
         public int GamesStarted { get; set; }
         public int Minutes { get; set; }
+        public int Points { get; set; }
+        public int Assists { get; set; }
+        public int Rebounds { get; set; }
+        public int Blocks { get; set; }
+        public int Steals { get; set; }
+        public int Fouls { get; set; }
+        public int Turnovers { get; set; }
+
+        /* --- advanced --- */
         public int FieldGoalsAttempted { get; set; }
         public int FieldGoalsMade { get; set; }
         public int ThreePointersAttempted { get; set; }
@@ -17,32 +28,28 @@ namespace NbaApp.Common.Entities
         public int FreeThrowsMade { get; set; }
         public int OffensiveRebounds { get; set; }
         public int DefensiveRebounds { get; set; }
-        public int Assists { get; set; }
-        public int Blocks { get; set; }
-        public int Steals { get; set; }
-        public int Fouls { get; set; }
-        public int Turnovers { get; set; }
         public double MinutesPerGame { get; set; }
         public decimal FieldGoalPercentage { get; set; }
         public decimal ThreePointersPercentage { get; set; }
         public decimal FreeThrowsPercentage { get; set; }
-        public int Rebounds { get; set; }
+
+        /* --- per game --- */
         public double ReboundsPerGame { get; set; }
         public double AssistsPerGame { get; set; }
         public double BlocksPerGame { get; set; }
         public double StealsPerGame { get; set; }
         public double FoulsPerGame { get; set; }
         public double TurnoversPerGame { get; set; }
-        public int Points { get; set; }
-        public int PointsPerGame { get; set; }
+        public double PointsPerGame { get; set; }
 
         /* Constructors */
-        public PlayerStatsInfo()
+        public PlayerStats()
         {
 
         }
 
-        public PlayerStatsInfo(int gamesPlayed, int gamesStarted, int minutes, int fieldGoalsAttempted, int fieldGoalsMade, int threePointersAttempted, int threePointersMade, int freeThrowsAttempted, int freeThrowsMade)
+        public PlayerStats(int gamesPlayed, int gamesStarted, int minutes, int fieldGoalsAttempted, int fieldGoalsMade, int threePointersAttempted, int threePointersMade,
+            int freeThrowsAttempted, int freeThrowsMade, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int steals, int fouls, int turnovers)
         {
             GamesPlayed = gamesPlayed;
             GamesStarted = gamesStarted;
@@ -53,6 +60,13 @@ namespace NbaApp.Common.Entities
             ThreePointersMade = threePointersMade;
             FreeThrowsAttempted = freeThrowsAttempted;
             FreeThrowsMade = freeThrowsMade;
+            OffensiveRebounds = offensiveRebounds;
+            DefensiveRebounds = defensiveRebounds;
+            Assists = assists;
+            Blocks = blocks;
+            Steals = steals;
+            Fouls = fouls;
+            Turnovers = turnovers;
 
             MinutesPerGame = Minutes / GamesPlayed;
             FieldGoalPercentage = FieldGoalsMade / FieldGoalsAttempted;
@@ -67,18 +81,6 @@ namespace NbaApp.Common.Entities
             TurnoversPerGame = Turnovers / GamesPlayed;
             Points = (FieldGoalsMade - ThreePointersMade) * 2 + ThreePointersMade * 3 + FreeThrowsMade;
             PointsPerGame = Points / GamesPlayed;
-        }
-
-        public PlayerStatsInfo(int gamesPlayed, int gamesStarted, int minutes, int fieldGoalsAttempted, int fieldGoalsMade, int threePointersAttempted, int threePointersMade, int freeThrowsAttempted, int freeThrowsMade, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int steals, int fouls, int turnovers)
-            : this(gamesPlayed, gamesStarted, minutes, fieldGoalsAttempted, fieldGoalsMade, threePointersAttempted, threePointersMade, freeThrowsAttempted, freeThrowsMade)
-        {
-            OffensiveRebounds = offensiveRebounds;
-            DefensiveRebounds = defensiveRebounds;
-            Assists = assists;
-            Blocks = blocks;
-            Steals = steals;
-            Fouls = fouls;
-            Turnovers = turnovers;
         }
     }
 }

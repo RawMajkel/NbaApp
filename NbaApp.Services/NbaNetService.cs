@@ -38,18 +38,18 @@ namespace NbaApp.Services
         public async Task LoadTeams()
         {
             using WebClient client = new WebClient();
-            var teamsJson = client.DownloadString("https://data.nba.net/");
+            var teamsJson = client.DownloadString("https://data.nba.net/prod/v1/2019/teams.json");
             var teamsData = JsonSerializer.Deserialize<NbaNetTeamsData>(teamsJson, _options);
 
-            var teams = teamsData.SportsContent.Teams.Teams
-                .Where(x => x.IsNbaTeam == true)
+            var teams = teamsData.League.Teams
+                .Where(x => x.IsNbaFranchise == true)
                 .Select(x => new Team(
                     x.Name,
                     x.NickName,
                     x.Abbreviation,
                     x.Conference == "West" ? "Western" : "Eastern",
                     x.Division,
-                    x.Id.ToString()
+                    x.Id
                 ));
 
             foreach (var team in teams)
@@ -90,20 +90,46 @@ namespace NbaApp.Services
             player.Player.AddCareerInfo(player.PlayerCareerInfo);
 
             _context.Players.Add(player.Player);
-            _context.PlayersCareerInfos.Add(player.PlayerCareerInfo);
-
-            /* Stats */
-            //LoadPlayerStats(player.NbaNetID).Wait();
+            _context.PlayersInfos.Add(player.PlayerCareerInfo);
 
             await _context.SaveChangesAsync();
+
+            /* Stats */
+            LoadPlayerStats(player.Player.NbaNetID).Wait();
         }
 
         public async Task LoadPlayerStats(string nbaNetID)
         {
             using WebClient client = new WebClient();
             var statsJson = client.DownloadString(string.Format("https://data.nba.net/prod/v1/2019/players/{0}_profile.json", nbaNetID));
+            var statsData = JsonSerializer.Deserialize<NbaNetStatsData>(statsJson, _options);
 
-            var statsData = JsonSerializer.Deserialize<NbaNetPlayersData>(statsJson, _options);
+            var stats = new PlayerStats(
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.GamesPlayed),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.GamesStarted),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.Minutes),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.FGA),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.FGM),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.TPA),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.TPM),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.FTA),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.FTM),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.OffReb),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.DefReb),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.Assists),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.Blocks),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.Steals),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.Fouls),
+                Convert.ToInt32(statsData.League.Standard.Stats.Latest.Turnovers));
+
+            var player = _context.Players
+                .Where(x => x.NbaNetID == nbaNetID)
+                .FirstOrDefault();
+
+            player.AddStatsInfo(stats);
+
+            _context.Statistics.Add(stats);
+
             await _context.SaveChangesAsync();
         }
 

@@ -20,7 +20,7 @@ namespace NbaApp.Common.Entities
         public ushort WeightPounds { get; set; }
         public float WeightKilograms { get; set; }
         public Guid CurrentTeam { get; set; }
-        public PlayerStatsInfo Stats { get; set; }
+        public PlayerStats Stats { get; set; }
         public PlayerCareerInfo CareerInfo { get; set; }
 
         /* Constructors */
@@ -52,6 +52,6 @@ namespace NbaApp.Common.Entities
 
         /* Methods */
         public void AddCareerInfo(PlayerCareerInfo careerInfo) => CareerInfo = careerInfo;
-        public void AddStatsInfo(PlayerStatsInfo stats) => Stats = stats;
+        public void AddStatsInfo(PlayerStats stats) => Stats = stats;
     }
 }

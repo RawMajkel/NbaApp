@@ -3,9 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace NbaApp.Services.NbaNetClasses
 {
-    public class NbaNetTeams
+    public class NbaNetTeamsLeague
     {
-        [JsonPropertyName("team")]
+        [JsonPropertyName("standard")]
         public List<NbaNetTeam> Teams { get; set; }
     }
 }
