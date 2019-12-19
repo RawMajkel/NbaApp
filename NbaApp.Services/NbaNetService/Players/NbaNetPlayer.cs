@@ -39,5 +39,11 @@ namespace NbaApp.Services.NbaNetClasses
 
         [JsonPropertyName("country")]
         public string Country { get; set; }
+
+        [JsonPropertyName("nbaDebutYear")]
+        public string NbaDebutYear { get; set; }
+
+        [JsonPropertyName("isActive")]
+        public bool IsActive { get; set; }
     }
 }

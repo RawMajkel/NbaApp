@@ -28,12 +28,12 @@ namespace NbaApp.Common.Entities
         public int FreeThrowsMade { get; set; }
         public int OffensiveRebounds { get; set; }
         public int DefensiveRebounds { get; set; }
-        public double MinutesPerGame { get; set; }
-        public decimal FieldGoalPercentage { get; set; }
-        public decimal ThreePointersPercentage { get; set; }
-        public decimal FreeThrowsPercentage { get; set; }
+        public double FieldGoalPercentage { get; set; }
+        public double ThreePointersPercentage { get; set; }
+        public double FreeThrowsPercentage { get; set; }
 
         /* --- per game --- */
+        public double MinutesPerGame { get; set; }
         public double ReboundsPerGame { get; set; }
         public double AssistsPerGame { get; set; }
         public double BlocksPerGame { get; set; }
@@ -48,39 +48,56 @@ namespace NbaApp.Common.Entities
 
         }
 
-        public PlayerStats(int gamesPlayed, int gamesStarted, int minutes, int fieldGoalsAttempted, int fieldGoalsMade, int threePointersAttempted, int threePointersMade,
-            int freeThrowsAttempted, int freeThrowsMade, int offensiveRebounds, int defensiveRebounds, int assists, int blocks, int steals, int fouls, int turnovers)
+        public PlayerStats(string gamesPlayed, string gamesStarted, string minutes, string fieldGoalsAttempted, string fieldGoalsMade, string threePointersAttempted, string threePointersMade,
+            string freeThrowsAttempted, string freeThrowsMade, string offensiveRebounds, string defensiveRebounds, string assists, string blocks, string steals, string fouls, string turnovers)
         {
-            GamesPlayed = gamesPlayed;
-            GamesStarted = gamesStarted;
-            Minutes = minutes;
-            FieldGoalsAttempted = fieldGoalsAttempted;
-            FieldGoalsMade = fieldGoalsMade;
-            ThreePointersAttempted = threePointersAttempted;
-            ThreePointersMade = threePointersMade;
-            FreeThrowsAttempted = freeThrowsAttempted;
-            FreeThrowsMade = freeThrowsMade;
-            OffensiveRebounds = offensiveRebounds;
-            DefensiveRebounds = defensiveRebounds;
-            Assists = assists;
-            Blocks = blocks;
-            Steals = steals;
-            Fouls = fouls;
-            Turnovers = turnovers;
+            GamesPlayed = RepairStat(gamesPlayed);
+            GamesStarted = RepairStat(gamesStarted);
+            Minutes = RepairStat(minutes);
+            FieldGoalsAttempted = RepairStat(fieldGoalsAttempted);
+            FieldGoalsMade = RepairStat(fieldGoalsMade);
+            ThreePointersAttempted = RepairStat(threePointersAttempted);
+            ThreePointersMade = RepairStat(threePointersMade);
+            FreeThrowsAttempted = RepairStat(freeThrowsAttempted);
+            FreeThrowsMade = RepairStat(freeThrowsMade);
+            OffensiveRebounds = RepairStat(offensiveRebounds);
+            DefensiveRebounds = RepairStat(defensiveRebounds);
+            Assists = RepairStat(assists);
+            Blocks = RepairStat(blocks);
+            Steals = RepairStat(steals);
+            Fouls = RepairStat(fouls);
+            Turnovers = RepairStat(turnovers);
 
-            MinutesPerGame = Minutes / GamesPlayed;
-            FieldGoalPercentage = FieldGoalsMade / FieldGoalsAttempted;
-            ThreePointersPercentage = ThreePointersMade / ThreePointersAttempted;
-            FreeThrowsPercentage = FreeThrowsMade / FreeThrowsAttempted;
             Rebounds = DefensiveRebounds + OffensiveRebounds;
-            ReboundsPerGame = Rebounds / GamesPlayed;
-            AssistsPerGame = Assists / GamesPlayed;
-            BlocksPerGame = Blocks / GamesPlayed;
-            StealsPerGame = Steals / GamesPlayed;
-            FoulsPerGame = Fouls / GamesPlayed;
-            TurnoversPerGame = Turnovers / GamesPlayed;
             Points = (FieldGoalsMade - ThreePointersMade) * 2 + ThreePointersMade * 3 + FreeThrowsMade;
-            PointsPerGame = Points / GamesPlayed;
+
+            if (FieldGoalsAttempted != 0) FieldGoalPercentage = Math.Round(FieldGoalsMade * 1.0 / FieldGoalsAttempted, 2);
+            if (ThreePointersAttempted != 0) ThreePointersPercentage = Math.Round(ThreePointersMade * 1.0 / ThreePointersAttempted, 2);
+            if (FreeThrowsAttempted != 0) FreeThrowsPercentage = Math.Round(FreeThrowsMade * 1.0 / FreeThrowsAttempted, 2);
+
+            if (GamesPlayed != 0)
+            {
+                MinutesPerGame = Math.Round(Minutes * 1.0 / GamesPlayed, 2);
+                ReboundsPerGame = Math.Round(Rebounds * 1.0 / GamesPlayed, 2);
+                AssistsPerGame = Math.Round(Assists * 1.0 / GamesPlayed, 2);
+                BlocksPerGame = Math.Round(Blocks * 1.0 / GamesPlayed, 2);
+                StealsPerGame = Math.Round(Steals * 1.0 / GamesPlayed, 2);
+                FoulsPerGame = Math.Round(Fouls * 1.0 / GamesPlayed, 2);
+                TurnoversPerGame = Math.Round(Turnovers * 1.0 / GamesPlayed, 2);
+                PointsPerGame = Math.Round(Points * 1.0 / GamesPlayed, 2);
+            }
+        }
+
+        //Methods
+        private static int RepairStat(string stat)
+        {
+            if (string.IsNullOrEmpty(stat))
+            {
+                return 0;
+            }
+
+            var temp = int.Parse(stat);
+            return temp < 0 ? 0 : temp;
         }
     }
 }

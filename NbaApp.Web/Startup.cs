@@ -37,9 +37,12 @@ namespace NbaApp.Web
             context.Database.EnsureCreated();
 
             nbaNetService.LoadTeams().Wait();
-            nbaNetService.LoadPlayerData("LeBron", "James").Wait();
-            nbaNetService.LoadPlayerData("Jayson", "Tatum").Wait();
-            nbaNetService.LoadPlayerData("Jaylen", "Brown").Wait();
+            nbaNetService.LoadPlayers().Wait();
+
+            //nbaNetService.LoadPlayersFromTeam("Celtics").Wait();
+            //nbaNetService.LoadPlayerDataByName("LeBron", "James").Wait();
+
+            //nbaNetService.LoadPlayerDataById("1627759").Wait();
 
             if (env.IsDevelopment())
             {
