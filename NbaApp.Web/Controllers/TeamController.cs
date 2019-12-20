@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿using NbaApp.Persistance;
+using NbaApp.Services;
 namespace NbaApp.Web.Controllers
 {
-    public class TeamController
+    public class TeamController : BaseController
     {
+        public TeamController(ApiService apiService, Context context) : base(apiService, context)
+        {
+
+        }
     }
 }
