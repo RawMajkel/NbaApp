@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace NbaApp.Services.NbaNetClasses
@@ -6,9 +7,9 @@ namespace NbaApp.Services.NbaNetClasses
     public class NbaNetStandingsConferences
     {
         [JsonPropertyName("east")]
-        public NbaNetStandingsConference East { get; set; }
+        public List<NbaNetStandingsConference> East { get; set; }
 
         [JsonPropertyName("west")]
-        public NbaNetStandingsConference West { get; set; }
+        public List<NbaNetStandingsConference> West { get; set; }
     }
 }
