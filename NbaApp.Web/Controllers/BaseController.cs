@@ -1,9 +1,10 @@
-﻿using NbaApp.Persistance;
+﻿using Microsoft.AspNetCore.Mvc;
+using NbaApp.Persistance;
 using NbaApp.Services;
 
 namespace NbaApp.Web.Controllers
 {
-    public class BaseController
+    public class BaseController : ControllerBase
     {
         private readonly ApiService _apiService;
         private readonly Context _context;

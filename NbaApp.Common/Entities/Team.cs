@@ -13,6 +13,8 @@ namespace NbaApp.Common.Entities
         public string Conference { get; set; }
         public string Division { get; set; }
 
+        //TeamStats - wins / loses etc
+
         /* Constructors */
         public Team()
         {

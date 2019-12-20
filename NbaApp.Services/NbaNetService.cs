@@ -6,16 +6,23 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Net;
-using System.Globalization;
 
 namespace NbaApp.Services
 {
+    // **********
+    // API HELPER 
+    //
+    // https://data.nba.net/10s/prod/v3/today.json
+    //
+    // **********
+
     public class NbaNetService
     {
         /* Fields */
         private readonly Context _context;
         private readonly NbaNetPlayersData _playersData;
         private readonly NbaNetTeamsData _teamsData;
+        private readonly NbaNetStandingsData _standingsData;
         private readonly JsonSerializerOptions _options;
 
         /* Constructors */
@@ -32,9 +39,11 @@ namespace NbaApp.Services
             using var client = new WebClient();
             var playersJson = client.DownloadString("https://data.nba.net/prod/v1/2019/players.json");
             var teamsJson = client.DownloadString("https://data.nba.net/prod/v1/2019/teams.json");
+            var standingsJson = client.DownloadString("https://data.nba.net/prod//v1/current/standings_conference.json");
 
             _playersData = JsonSerializer.Deserialize<NbaNetPlayersData>(playersJson, _options);
             _teamsData = JsonSerializer.Deserialize<NbaNetTeamsData>(teamsJson, _options);
+            _standingsData = JsonSerializer.Deserialize<NbaNetStandingsData>(standingsJson, _options);
         }
 
         /* Methods */
@@ -54,6 +63,9 @@ namespace NbaApp.Services
             foreach (var team in teams)
             {
                 _context.Teams.Add(team);
+
+                //Stats
+
             }
 
             await _context.SaveChangesAsync();
@@ -157,7 +169,7 @@ namespace NbaApp.Services
 
                 _context.Players.Add(player.Player);
                 _context.PlayerCareerInfos.Add(player.PlayerCareerInfo);
-                _context.Statistics.Add(stats);
+                _context.PlayerStats.Add(stats);
 
                 await _context.SaveChangesAsync();
             }
@@ -193,7 +205,7 @@ namespace NbaApp.Services
 
             player.AddStatsInfo(stats);
 
-            _context.Statistics.Add(stats);
+            _context.PlayerStats.Add(stats);
 
             await _context.SaveChangesAsync();
         }

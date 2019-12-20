@@ -2,9 +2,9 @@
 
 namespace NbaApp.Services.NbaNetClasses
 {
-    public class NbaNetPlayersData
+    public class NbaNetStandingsData
     {
         [JsonPropertyName("league")]
-        public NbaNetPlayersLeague League { get; set; }
+        public NbaNetStandingsLeague League { get; set; }
     }
 }
