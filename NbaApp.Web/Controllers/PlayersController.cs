@@ -9,9 +9,9 @@ namespace NbaApp.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PlayerController : BaseController
+    public class PlayersController : BaseController
     {
-        public PlayerController(ApiService apiService, Context context) : base(apiService, context)
+        public PlayersController(ApiService apiService, Context context) : base(apiService, context)
         {
 
         }
