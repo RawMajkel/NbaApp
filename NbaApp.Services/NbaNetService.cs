@@ -6,29 +6,25 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Net;
-using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.Configuration;
 
 namespace NbaApp.Services
 {
-    // **********
-    // API HELPER 
-    //
-    // https://data.nba.net/10s/prod/v3/today.json
-    //
-    // **********
-
     public class NbaNetService
     {
-        /* Fields */
+        #region Fields
         private readonly Context _context;
         private readonly NbaNetPlayersData _playersData;
         private readonly NbaNetTeamsData _teamsData;
         private readonly NbaNetStandingsData _standingsData;
         private readonly JsonSerializerOptions _options;
+        private IConfiguration _configuration;
+        #endregion
 
-        /* Constructors */
-        public NbaNetService(Context context)
+        #region Constructors
+        public NbaNetService(Context context, IConfiguration configuration)
         {
+            _configuration = configuration;
             _context = context;
 
             _options = new JsonSerializerOptions
@@ -37,17 +33,16 @@ namespace NbaApp.Services
                 WriteIndented = true
             };
 
-            //TODO wrzucić do appsettings
-
             using var client = new WebClient();
-            var playersJson = client.DownloadString("https://data.nba.net/prod/v1/2019/players.json");
-            var teamsJson = client.DownloadString("https://data.nba.net/prod/v1/2019/teams.json");
-            var standingsJson = client.DownloadString("https://data.nba.net/prod//v1/current/standings_conference.json");
+            var playersJson = client.DownloadString(_configuration["NbaNetDataUrls:Players"]);
+            var teamsJson = client.DownloadString(_configuration["NbaNetDataUrls:Teams"]);
+            var standingsJson = client.DownloadString(_configuration["NbaNetDataUrls:Standings"]);
 
             _playersData = JsonSerializer.Deserialize<NbaNetPlayersData>(playersJson, _options);
             _teamsData = JsonSerializer.Deserialize<NbaNetTeamsData>(teamsJson, _options);
             _standingsData = JsonSerializer.Deserialize<NbaNetStandingsData>(standingsJson, _options);
         }
+        #endregion
 
         #region Methods
         public async Task LoadTeams()
