@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Net;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace NbaApp.Services
 {
@@ -36,6 +37,8 @@ namespace NbaApp.Services
                 WriteIndented = true
             };
 
+            //TODO wrzucić do appsettings
+
             using var client = new WebClient();
             var playersJson = client.DownloadString("https://data.nba.net/prod/v1/2019/players.json");
             var teamsJson = client.DownloadString("https://data.nba.net/prod/v1/2019/teams.json");
@@ -46,7 +49,7 @@ namespace NbaApp.Services
             _standingsData = JsonSerializer.Deserialize<NbaNetStandingsData>(standingsJson, _options);
         }
 
-        /* Methods */
+        #region Methods
         public async Task LoadTeams()
         {
             var teams = _teamsData.League.Teams
@@ -65,7 +68,14 @@ namespace NbaApp.Services
                 _context.Teams.Add(team);
 
                 //Stats
+                var stats = _standingsData.League.Standard.Conference.West.Concat(_standingsData.League.Standard.Conference.East)
+                    .Where(x => x.TeamId == team.NbaNetID)
+                    .Select(x => new TeamStats(x.TeamId, x.Wins, x.Losses, x.GamesBehind, x.ConferenceRank, x.HomeWins, x.HomeLosses, x.AwayWins, x.AwayLosses, x.WinningStreak))
+                    .FirstOrDefault();
 
+                team.AddStats(stats);
+
+                _context.TeamStats.Add(stats);
             }
 
             await _context.SaveChangesAsync();
@@ -217,5 +227,7 @@ namespace NbaApp.Services
                 .Select(x => x.ID)
                 .FirstOrDefault();
         }
+
+        #endregion
     }
 }

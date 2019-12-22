@@ -12,8 +12,7 @@ namespace NbaApp.Common.Entities
         public string Abbreviation { get; set; }
         public string Conference { get; set; }
         public string Division { get; set; }
-
-        //TeamStats - wins / loses etc
+        public TeamStats Statistics { get; set; }
 
         /* Constructors */
         public Team()
@@ -29,6 +28,11 @@ namespace NbaApp.Common.Entities
             Conference = conference;
             Division = division;
             NbaNetID = nbaNetID;
+        }
+
+        public void AddStats(TeamStats stats)
+        {
+            Statistics = stats;
         }
     }
 }
