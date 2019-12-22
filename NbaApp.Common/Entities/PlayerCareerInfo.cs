@@ -4,7 +4,7 @@ namespace NbaApp.Common.Entities
 {
     public class PlayerCareerInfo
     {
-        /* Properties */
+        #region Properties
         public Guid ID { get; set; } = Guid.NewGuid();
         public string College { get; set; }
         public string Country { get; set; }
@@ -15,8 +15,9 @@ namespace NbaApp.Common.Entities
         public int? DraftRound { get; set; }
         public int? DraftPick { get; set; }
         public Guid? DraftTeam { get; set; }
+        #endregion
 
-        /* Constructors */
+        #region Constructors
         public PlayerCareerInfo()
         {
 
@@ -39,5 +40,6 @@ namespace NbaApp.Common.Entities
                 YearsPro = DateTime.Now.Year - int.Parse(debutYear);
             }
         }
+        #endregion
     }
 }

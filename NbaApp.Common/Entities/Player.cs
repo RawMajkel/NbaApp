@@ -8,7 +8,7 @@ namespace NbaApp.Common.Entities
 
     public class Player
     {
-        /* Properties */
+        #region Properties
         public Guid ID { get; set; } = Guid.NewGuid();
         public string NbaNetID { get; set; }
         public string FirstName { get; set; }
@@ -25,8 +25,9 @@ namespace NbaApp.Common.Entities
         public Guid CurrentTeam { get; set; }
         public PlayerStats Stats { get; set; }
         public PlayerCareerInfo CareerInfo { get; set; }
+        #endregion
 
-        /* Constructors */
+        #region Constructors
         public Player()
         {
 
@@ -51,9 +52,11 @@ namespace NbaApp.Common.Entities
                 Age = DateTime.Now.Year - DateOfBirth.Value.Year;
             }
         }
+        #endregion
 
-        /* Methods */
+        #region Methods
         public void AddCareerInfo(PlayerCareerInfo careerInfo) => CareerInfo = careerInfo;
         public void AddStatsInfo(PlayerStats stats) => Stats = stats;
+        #endregion
     }
 }

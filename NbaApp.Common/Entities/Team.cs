@@ -4,7 +4,7 @@ namespace NbaApp.Common.Entities
 {
     public class Team
     {
-        /* Properties */
+        #region Properties
         public Guid ID { get; set; } = Guid.NewGuid();
         public string NbaNetID { get; set; }
         public string Name { get; set; }
@@ -13,8 +13,9 @@ namespace NbaApp.Common.Entities
         public string Conference { get; set; }
         public string Division { get; set; }
         public TeamStats Statistics { get; set; }
+        #endregion
 
-        /* Constructors */
+        #region Properties
         public Team()
         {
 
@@ -29,10 +30,13 @@ namespace NbaApp.Common.Entities
             Division = division;
             NbaNetID = nbaNetID;
         }
+        #endregion
 
+        #region Methods
         public void AddStats(TeamStats stats)
         {
             Statistics = stats;
         }
+        #endregion
     }
 }

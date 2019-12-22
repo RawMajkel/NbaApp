@@ -4,7 +4,7 @@ namespace NbaApp.Common.Entities
 {
     public class TeamStats
     {
-        /* Properties */
+        #region Properties
         public Guid ID { get; set; } = Guid.NewGuid();
         public string TeamId { get; set; }
         public int Wins { get; set; }
@@ -16,12 +16,14 @@ namespace NbaApp.Common.Entities
         public int AwayWins { get; set; }
         public int AwayLosses { get; set; }
         public int WinningStreak { get; set; }
+        #endregion
 
-        /* Constructors */
+        #region Constructors
         public TeamStats()
         {
 
         }
+
         public TeamStats(string teamId, string wins, string losses, string gamesBehind, string conferenceRank, string homeWins, string homeLosses,
             string awayWins, string awayLosses, string winningStreak)
         {
@@ -37,5 +39,6 @@ namespace NbaApp.Common.Entities
             AwayLosses = int.Parse(awayLosses);
             WinningStreak = int.Parse(winningStreak);
         }
+        #endregion
     }
 }
