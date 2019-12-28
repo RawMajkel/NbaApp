@@ -6,7 +6,7 @@ namespace NbaApp.Web.Controllers
 {
     public class StandingsController : BaseController
     {
-        public StandingsController(ApiService apiService, Context context) : base(apiService, context)
+        public StandingsController(ApiService apiService) : base(apiService)
         {
 
         }

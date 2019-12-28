@@ -10,23 +10,18 @@ using Microsoft.Extensions.Configuration;
 
 namespace NbaApp.Services
 {
-    public class NbaNetService
+    public class NbaNetService : BaseService
     {
         #region Fields
-        private readonly Context _context;
         private readonly NbaNetPlayersData _playersData;
         private readonly NbaNetTeamsData _teamsData;
         private readonly NbaNetStandingsData _standingsData;
         private readonly JsonSerializerOptions _options;
-        private IConfiguration _configuration;
         #endregion
 
         #region Constructors
-        public NbaNetService(Context context, IConfiguration configuration)
+        public NbaNetService(Context context, IConfiguration configuration) : base(context, configuration)
         {
-            _configuration = configuration;
-            _context = context;
-
             _options = new JsonSerializerOptions
             {
                 IgnoreNullValues = true,

@@ -4,8 +4,6 @@ using System.Globalization;
 
 namespace NbaApp.Common.Entities
 {
-    /* IMAGE https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2544.png */
-
     public class Player
     {
         #region Properties

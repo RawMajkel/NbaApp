@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NbaApp.Web.Messages.Responses
+namespace NbaApp.Web.Responses
 {
     public class PlayerResponse
     {
@@ -24,21 +24,6 @@ namespace NbaApp.Web.Messages.Responses
         public int? DraftRound { get; set; }
         public int? DraftPick { get; set; }
         public Guid DraftTeam { get; set; }
-
-        public PlayerResponse(string firstName, string lastName, DateTime? dateOfBirth, string nbaNetID, int age, float heightMetric, int heightFeet, float heightInches, int weightPounds, float weightKilograms, Guid currentTeam)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            DateOfBirth = dateOfBirth;
-            NbaNetID = nbaNetID;
-            Age = age;
-            HeightMetric = heightMetric;
-            HeightFeet = heightFeet;
-            HeightInches = heightInches;
-            WeightPounds = weightPounds;
-            WeightKilograms = weightKilograms;
-            CurrentTeam = currentTeam;
-        }
 
         public PlayerResponse(string firstName, string lastName, DateTime? dateOfBirth, string nbaNetID, int age, float heightMetric, int heightFeet, float heightInches, int weightPounds, float weightKilograms,
             Guid currentTeam, string college, string country, string jerseyNumber, int yearsPro, string position, int? draftYear, int? draftRound, int? draftPick, Guid draftTeam)
