@@ -10,4 +10,3 @@ It requires .NET Core 3.1.0 (https://dotnet.microsoft.com/download/dotnet-core/3
  - https://localhost:5001/api/team/{guid} -> Get specific team by ID
  - https://localhost:5001/api/teams/ -> Get all teams
  - https://localhost:5001/api/team-stats/{guid} -> Get team stats by ID
- - https://localhost:5001/api/standings -> Get standings
