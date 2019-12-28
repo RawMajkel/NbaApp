@@ -6,8 +6,8 @@ namespace NbaApp.Web.Controllers
 {
     public class BaseController : ControllerBase
     {
-        private readonly ApiService _apiService;
-        private readonly Context _context;
+        protected readonly ApiService _apiService;
+        protected readonly Context _context;
 
         public BaseController(ApiService apiService, Context context)
         {

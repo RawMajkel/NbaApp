@@ -25,7 +25,6 @@ namespace NbaApp.Common.Entities
 
         public PlayerCareerInfo(string college, string country, string jerseyNumber, string position, string draftYear, string draftRound, string draftPick, string debutYear, Guid draftTeam)
         {
-            College = college;
             Country = country;
             Position = position;
             DraftTeam = draftTeam;
@@ -34,6 +33,8 @@ namespace NbaApp.Common.Entities
             DraftYear = int.TryParse(draftYear, out int i) ? (int?)i : null;
             DraftRound = int.TryParse(draftRound, out i) ? (int?)i : null;
             DraftPick = int.TryParse(draftPick, out i) ? (int?)i : null;
+
+            College = string.IsNullOrEmpty(college) ? null : college;
 
             if (!string.IsNullOrEmpty(debutYear))
             {

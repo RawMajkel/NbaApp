@@ -22,6 +22,7 @@ namespace NbaApp.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<NbaNetService>();
+            services.AddTransient<ApiService>();
 
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(

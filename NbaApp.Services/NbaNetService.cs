@@ -47,7 +47,7 @@ namespace NbaApp.Services
         #region Methods
         public async Task LoadTeams()
         {
-            var teams = _teamsData.League.Teams
+            var teams = await Task.FromResult(_teamsData.League.Teams
                 .Where(x => x.IsNbaFranchise == true)
                 .Select(x => new Team(
                     x.Name,
@@ -56,17 +56,17 @@ namespace NbaApp.Services
                     x.Conference == "West" ? "Western" : "Eastern",
                     x.Division,
                     x.Id.ToString()
-                ));
+                )));
 
             foreach (var team in teams)
             {
                 _context.Teams.Add(team);
 
                 //Stats
-                var stats = _standingsData.League.Standard.Conference.West.Concat(_standingsData.League.Standard.Conference.East)
+                var stats = await Task.FromResult(_standingsData.League.Standard.Conference.West.Concat(_standingsData.League.Standard.Conference.East)
                     .Where(x => x.TeamId == team.NbaNetID)
                     .Select(x => new TeamStats(x.TeamId, x.Wins, x.Losses, x.GamesBehind, x.ConferenceRank, x.HomeWins, x.HomeLosses, x.AwayWins, x.AwayLosses, x.WinningStreak))
-                    .FirstOrDefault();
+                    .FirstOrDefault());
 
                 team.AddStats(stats);
 
@@ -78,7 +78,7 @@ namespace NbaApp.Services
 
         public async Task LoadPlayerDataByName(string firstName, string lastName)
         {
-            var player = _playersData.League.Players
+            var player = await Task.FromResult(_playersData.League.Players
                 .Where(x => x.FirstName == firstName && x.LastName == lastName)
                 .Select(x => new PlayerInfo(
                     new Player(
@@ -87,7 +87,7 @@ namespace NbaApp.Services
                         x.DateOfBirth,
                         x.HeightMetric,
                         x.WeightLbs,
-                        GetTeamID(x.TeamID),
+                        GetTeamID(x.TeamID).Result,
                         x.PersonID
                     ),
                     new PlayerCareerInfo(
@@ -99,10 +99,10 @@ namespace NbaApp.Services
                         x.Draft.Round,
                         x.Draft.Pick,
                         x.NbaDebutYear,
-                        GetTeamID(x.Draft.TeamID)
+                        GetTeamID(x.Draft.TeamID).Result
                     )
                  ))
-                .FirstOrDefault();
+                .FirstOrDefault());
 
             player.Player.AddCareerInfo(player.PlayerCareerInfo);
 
@@ -117,7 +117,7 @@ namespace NbaApp.Services
 
         public async Task LoadPlayers()
         {
-            var players = _playersData.League.Players
+            var players = await Task.FromResult(_playersData.League.Players
                 .Where(x => x.IsActive == true)
                 .Select(x => new PlayerInfo(
                     new Player(
@@ -126,7 +126,7 @@ namespace NbaApp.Services
                         x.DateOfBirth,
                         x.HeightMetric,
                         x.WeightLbs,
-                        GetTeamID(x.TeamID),
+                        GetTeamID(x.TeamID).Result,
                         x.PersonID
                     ),
                     new PlayerCareerInfo(
@@ -138,9 +138,9 @@ namespace NbaApp.Services
                         x.Draft.Round,
                         x.Draft.Pick,
                         x.NbaDebutYear,
-                        GetTeamID(x.Draft.TeamID)
+                        GetTeamID(x.Draft.TeamID).Result
                     )
-                 ));
+                 )));
 
             foreach (var player in players)
             {
@@ -204,9 +204,9 @@ namespace NbaApp.Services
                 statsData.League.Standard.Stats.Latest.Fouls,
                 statsData.League.Standard.Stats.Latest.Turnovers);
 
-            var player = _context.Players
+            var player = await Task.FromResult(_context.Players
                 .Where(x => x.NbaNetID == nbaNetID)
-                .FirstOrDefault();
+                .FirstOrDefault());
 
             player.AddStatsInfo(stats);
 
@@ -215,12 +215,12 @@ namespace NbaApp.Services
             await _context.SaveChangesAsync();
         }
 
-        public Guid GetTeamID(string nbaNetId)
+        public async Task<Guid> GetTeamID(string nbaNetId)
         {
-            return _context.Teams
+            return await Task.FromResult(_context.Teams
                 .Where(x => x.NbaNetID == nbaNetId)
                 .Select(x => x.ID)
-                .FirstOrDefault();
+                .FirstOrDefault());
         }
 
         #endregion
