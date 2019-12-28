@@ -60,6 +60,15 @@ namespace NbaApp.Services
             var player = await GetPlayerById(playerId);
             return player.Stats;
         }
+
+        public async Task<IEnumerable<Player>> GetPlayers()
+        {
+            var players = await Task.FromResult(_context.Players
+                .Include(x => x.CareerInfo)
+                .AsEnumerable());
+
+            return players;
+        }
         #endregion
     }
 }

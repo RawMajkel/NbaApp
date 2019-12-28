@@ -32,13 +32,10 @@ namespace NbaApp.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env, Context context, NbaNetService nbaNetService)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env, NbaNetService nbaNetService)
         {
-            //context.Database.EnsureDeleted();
-            //context.Database.EnsureCreated();
-
-            //nbaNetService.LoadTeams().Wait();
-            //nbaNetService.LoadPlayers().Wait();
+            //Uncomment line below to update all database from data.nba.net services
+            //nbaNetService.UpdateDatabase().Wait();
 
             if (env.IsDevelopment())
             {
@@ -46,9 +43,7 @@ namespace NbaApp.Web
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -40,6 +40,15 @@ namespace NbaApp.Services
         #endregion
 
         #region Methods
+        public async Task UpdateDatabase()
+        {
+            _context.Database.EnsureDeleted();
+            _context.Database.EnsureCreated();
+
+            await LoadTeams();
+            await LoadPlayers();
+        }
+
         public async Task LoadTeams()
         {
             var teams = await Task.FromResult(_teamsData.League.Teams

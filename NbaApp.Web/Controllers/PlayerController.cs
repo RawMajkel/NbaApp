@@ -16,6 +16,40 @@ namespace NbaApp.Web.Controllers
 
         }
 
+        [HttpGet("players")]
+        public async Task<ActionResult<List<PlayerResponse>>> GetAllPlayers()
+        {
+            var players = await _apiService.GetPlayers();
+            var result = new List<PlayerResponse>();
+
+            foreach (var player in players)
+            {
+                result.Add(new PlayerResponse(
+                    player.NbaNetID,
+                    player.FirstName,
+                    player.LastName,
+                    player.DateOfBirth,
+                    player.Age,
+                    player.HeightMetric,
+                    player.HeightFeet,
+                    player.HeightInches,
+                    player.WeightPounds,
+                    player.WeightKilograms,
+                    player.CurrentTeam,
+                    player.CareerInfo.College,
+                    player.CareerInfo.Country,
+                    player.CareerInfo.JerseyNumber,
+                    player.CareerInfo.YearsPro,
+                    player.CareerInfo.Position,
+                    player.CareerInfo.DraftYear,
+                    player.CareerInfo.DraftRound,
+                    player.CareerInfo.DraftPick,
+                    player.CareerInfo.DraftTeam.GetValueOrDefault()
+                ));
+            }
+
+            return result;
+        }
 
         [HttpGet("players/{teamId:guid}")]
         public async Task<ActionResult<List<PlayerResponse>>> GetPlayers(Guid teamId)
