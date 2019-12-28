@@ -16,29 +16,6 @@ namespace NbaApp.Web.Controllers
 
         }
 
-        [HttpGet("team-stats/{teamId:guid}")]
-        public async Task<ActionResult<TeamStatsResponse>> GetTeamStats(Guid teamId)
-        {
-            var teamStats = await _apiService.GetTeamStatsById(teamId);
-
-            if (teamStats is null)
-            {
-                return NotFound();
-            }
-
-            return new TeamStatsResponse(
-                teamStats.Wins,
-                teamStats.Losses,
-                teamStats.GamesBehind,
-                teamStats.ConferenceRank,
-                teamStats.HomeWins,
-                teamStats.HomeLosses,
-                teamStats.AwayWins,
-                teamStats.AwayLosses,
-                teamStats.WinningStreak
-            );
-        }
-
         [HttpGet("teams")]
         public async Task<ActionResult<List<TeamResponse>>> GetTeams()
         {
@@ -58,7 +35,16 @@ namespace NbaApp.Web.Controllers
                     team.NickName,
                     team.Abbreviation,
                     team.Conference,
-                    team.Division
+                    team.Division,
+                    team.Statistics.Wins,
+                    team.Statistics.Losses,
+                    team.Statistics.GamesBehind,
+                    team.Statistics.ConferenceRank,
+                    team.Statistics.HomeWins,
+                    team.Statistics.HomeLosses,
+                    team.Statistics.AwayWins,
+                    team.Statistics.AwayLosses,
+                    team.Statistics.WinningStreak
                 ));
             }
 
@@ -81,7 +67,16 @@ namespace NbaApp.Web.Controllers
                 team.NickName,
                 team.Abbreviation,
                 team.Conference,
-                team.Division
+                team.Division,
+                team.Statistics.Wins,
+                team.Statistics.Losses,
+                team.Statistics.GamesBehind,
+                team.Statistics.ConferenceRank,
+                team.Statistics.HomeWins,
+                team.Statistics.HomeLosses,
+                team.Statistics.AwayWins,
+                team.Statistics.AwayLosses,
+                team.Statistics.WinningStreak
             );
         }
 
@@ -101,7 +96,16 @@ namespace NbaApp.Web.Controllers
                 team.NickName,
                 team.Abbreviation,
                 team.Conference,
-                team.Division
+                team.Division,
+                team.Statistics.Wins,
+                team.Statistics.Losses,
+                team.Statistics.GamesBehind,
+                team.Statistics.ConferenceRank,
+                team.Statistics.HomeWins,
+                team.Statistics.HomeLosses,
+                team.Statistics.AwayWins,
+                team.Statistics.AwayLosses,
+                team.Statistics.WinningStreak
             );
         }
     }
