@@ -1,16 +1,32 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using NbaApp.Common.Entities;
+using NbaApp.Persistance;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NbaApp.Services
 {
     public class ApiService
     {
-        #region Properties
+        #region Fields
+        private readonly Context _context;
         #endregion
 
-        #region Properties
+        #region Constructors
+        public ApiService(Context context)
+        {
+            _context = context;
+        }
         #endregion
 
-        #region Properties
+        #region Methods
+        public async Task<Player> GetPlayerById(Guid playerId)
+        {
+            return await Task.FromResult(_context.Players
+                .Include(x => x.CareerInfo)
+                .FirstOrDefault(x => x.ID == playerId));
+        }
         #endregion
     }
 }

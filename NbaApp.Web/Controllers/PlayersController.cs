@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NbaApp.Persistance;
 using NbaApp.Services;
 using NbaApp.Web.Messages.Responses;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NbaApp.Web.Controllers
@@ -13,17 +10,15 @@ namespace NbaApp.Web.Controllers
     [ApiController]
     public class PlayersController : BaseController
     {
-        public PlayersController(ApiService apiService, Context context) : base(apiService, context)
+        public PlayersController(ApiService apiService) : base(apiService)
         {
 
         }
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<PlayerResponse>> Get(Guid id)
-        {           
-            var player = await Task.FromResult(_context.Players
-                .Include(x => x.CareerInfo)
-                .FirstOrDefault(x => x.ID == id));
+        {
+            var player = await _apiService.GetPlayerById(id);
 
             if (player is null)
             {
