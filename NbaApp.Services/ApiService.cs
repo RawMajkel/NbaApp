@@ -17,6 +17,27 @@ namespace NbaApp.Services
         }
 
         #region Methods
+        public async Task<Team> GetTeamByNickName(string nickName)
+        {
+            var team = await Task.FromResult(_context.Teams.FirstOrDefault(x => x.NickName == nickName));
+            return team;
+        }
+
+        public async Task<Player> GetPlayerByName(string firstName, string lastName)
+        {
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
+            {
+                Console.WriteLine("Invalid parameters");
+                return null;
+            }
+
+            var player = await Task.FromResult(_context.Players
+                .Include(x => x.CareerInfo)
+                .FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName));
+
+            return player;
+        }
+
         public async Task<TeamStats> GetTeamStatsById(Guid teamId)
         {
             var team = await GetTeamById(teamId);

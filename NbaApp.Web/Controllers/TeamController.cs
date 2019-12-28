@@ -65,6 +65,26 @@ namespace NbaApp.Web.Controllers
             return result;
         }
 
+        [HttpGet("team/{nickName}")]
+        public async Task<ActionResult<TeamResponse>> GetTeam(string nickName)
+        {
+            var team = await _apiService.GetTeamByNickName(nickName);
+
+            if (team is null)
+            {
+                return NotFound();
+            }
+
+            return new TeamResponse(
+                team.NbaNetID,
+                team.Name,
+                team.NickName,
+                team.Abbreviation,
+                team.Conference,
+                team.Division
+            );
+        }
+
         [HttpGet("team/{teamId:guid}")]
         public async Task<ActionResult<TeamResponse>> GetTeam(Guid teamId)
         {

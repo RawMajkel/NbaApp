@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
 
 namespace NbaApp.Common.Entities
@@ -11,8 +10,6 @@ namespace NbaApp.Common.Entities
         public string NbaNetID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-        [Column(TypeName = "Date")]
         public DateTime? DateOfBirth { get; set; }
         public int Age { get; set; }
         public float HeightMetric { get; set; }

@@ -25,6 +25,7 @@ namespace NbaApp.Web.Controllers
             foreach (var player in players)
             {
                 result.Add(new PlayerResponse(
+                    player.ID,
                     player.NbaNetID,
                     player.FirstName,
                     player.LastName,
@@ -60,6 +61,7 @@ namespace NbaApp.Web.Controllers
             foreach (var player in players)
             {
                 result.Add(new PlayerResponse(
+                    player.ID,
                     player.NbaNetID,
                     player.FirstName,
                     player.LastName,
@@ -112,6 +114,41 @@ namespace NbaApp.Web.Controllers
             );
         }
 
+        [HttpGet("player/{firstName}/{lastName}")]
+        public async Task<ActionResult<PlayerResponse>> GetPlayer(string firstName, string lastName)
+        {
+            var player = await _apiService.GetPlayerByName(firstName, lastName);
+
+            if (player is null)
+            {
+                return NotFound();
+            }
+
+            return new PlayerResponse(
+                player.ID,
+                player.NbaNetID,
+                player.FirstName,
+                player.LastName,
+                player.DateOfBirth,
+                player.Age,
+                player.HeightMetric,
+                player.HeightFeet,
+                player.HeightInches,
+                player.WeightPounds,
+                player.WeightKilograms,
+                player.CurrentTeam,
+                player.CareerInfo.College,
+                player.CareerInfo.Country,
+                player.CareerInfo.JerseyNumber,
+                player.CareerInfo.YearsPro,
+                player.CareerInfo.Position,
+                player.CareerInfo.DraftYear,
+                player.CareerInfo.DraftRound,
+                player.CareerInfo.DraftPick,
+                player.CareerInfo.DraftTeam.GetValueOrDefault()
+            );
+        }
+
         [HttpGet("player/{playerId:guid}")]
         public async Task<ActionResult<PlayerResponse>> GetPlayer(Guid playerId)
         {
@@ -123,6 +160,7 @@ namespace NbaApp.Web.Controllers
             }
 
             return new PlayerResponse(
+                player.ID,
                 player.NbaNetID,
                 player.FirstName,
                 player.LastName,
