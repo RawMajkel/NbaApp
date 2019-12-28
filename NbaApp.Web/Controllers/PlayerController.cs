@@ -2,6 +2,7 @@
 using NbaApp.Services;
 using NbaApp.Web.Responses;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace NbaApp.Web.Controllers
@@ -15,36 +16,72 @@ namespace NbaApp.Web.Controllers
 
         }
 
-        [HttpGet("player-stats/{id:guid}")]
-        public async Task<ActionResult<StatsResponse>> GetPlayerStats(Guid id)
-        {
-            var stats = await _apiService.GetPlayerStatsById(id);
 
-            if (stats is null)
+        [HttpGet("players/{teamId:guid}")]
+        public async Task<ActionResult<List<PlayerResponse>>> GetPlayers(Guid teamId)
+        {
+            var players = await _apiService.GetPlayersFromTeam(teamId);
+            var result = new List<PlayerResponse>();
+
+            foreach (var player in players)
+            {
+                result.Add(new PlayerResponse(
+                    player.NbaNetID,
+                    player.FirstName,
+                    player.LastName,
+                    player.DateOfBirth,
+                    player.Age,
+                    player.HeightMetric,
+                    player.HeightFeet,
+                    player.HeightInches,
+                    player.WeightPounds,
+                    player.WeightKilograms,
+                    player.CurrentTeam,
+                    player.CareerInfo.College,
+                    player.CareerInfo.Country,
+                    player.CareerInfo.JerseyNumber,
+                    player.CareerInfo.YearsPro,
+                    player.CareerInfo.Position,
+                    player.CareerInfo.DraftYear,
+                    player.CareerInfo.DraftRound,
+                    player.CareerInfo.DraftPick,
+                    player.CareerInfo.DraftTeam.GetValueOrDefault()
+                ));
+            }
+
+            return result;
+        }
+
+        [HttpGet("player-stats/{playerId:guid}")]
+        public async Task<ActionResult<PlayerStatsResponse>> GetPlayerStats(Guid playerId)
+        {
+            var playerStats = await _apiService.GetPlayerStatsById(playerId);
+
+            if (playerStats is null)
             {
                 return NotFound();
             }
 
-            return new StatsResponse(
-                stats.GamesPlayed, stats.GamesStarted,
-                stats.Minutes, stats.MinutesPerGame,
-                stats.Points, stats.PointsPerGame,
-                stats.Assists, stats.AssistsPerGame,
-                stats.OffensiveRebounds, stats.DefensiveRebounds, stats.Rebounds, stats.ReboundsPerGame,
-                stats.Blocks, stats.BlocksPerGame,
-                stats.Steals, stats.StealsPerGame,
-                stats.Fouls, stats.FoulsPerGame,
-                stats.Turnovers, stats.TurnoversPerGame,
-                stats.FieldGoalsAttempted, stats.FieldGoalsMade, stats.FieldGoalPercentage,
-                stats.ThreePointersAttempted, stats.ThreePointersMade, stats.ThreePointersPercentage,
-                stats.FreeThrowsAttempted, stats.FreeThrowsMade, stats.FreeThrowsPercentage
+            return new PlayerStatsResponse(
+                playerStats.GamesPlayed, playerStats.GamesStarted,
+                playerStats.Minutes, playerStats.MinutesPerGame,
+                playerStats.Points, playerStats.PointsPerGame,
+                playerStats.Assists, playerStats.AssistsPerGame,
+                playerStats.OffensiveRebounds, playerStats.DefensiveRebounds, playerStats.Rebounds, playerStats.ReboundsPerGame,
+                playerStats.Blocks, playerStats.BlocksPerGame,
+                playerStats.Steals, playerStats.StealsPerGame,
+                playerStats.Fouls, playerStats.FoulsPerGame,
+                playerStats.Turnovers, playerStats.TurnoversPerGame,
+                playerStats.FieldGoalsAttempted, playerStats.FieldGoalsMade, playerStats.FieldGoalPercentage,
+                playerStats.ThreePointersAttempted, playerStats.ThreePointersMade, playerStats.ThreePointersPercentage,
+                playerStats.FreeThrowsAttempted, playerStats.FreeThrowsMade, playerStats.FreeThrowsPercentage
             );
         }
 
-        [HttpGet("player/{id:guid}")]
-        public async Task<ActionResult<PlayerResponse>> GetPlayer(Guid id)
+        [HttpGet("player/{playerId:guid}")]
+        public async Task<ActionResult<PlayerResponse>> GetPlayer(Guid playerId)
         {
-            var player = await _apiService.GetPlayerById(id);
+            var player = await _apiService.GetPlayerById(playerId);
 
             if (player is null)
             {
@@ -52,10 +89,10 @@ namespace NbaApp.Web.Controllers
             }
 
             return new PlayerResponse(
+                player.NbaNetID,
                 player.FirstName,
                 player.LastName,
                 player.DateOfBirth,
-                player.NbaNetID,
                 player.Age,
                 player.HeightMetric,
                 player.HeightFeet,

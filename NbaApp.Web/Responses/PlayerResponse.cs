@@ -4,10 +4,10 @@ namespace NbaApp.Web.Responses
 {
     public class PlayerResponse
     {
+        public string ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime? DateOfBirth { get; set; }
-        public string NbaNetID { get; set; }
         public int Age { get; set; }
         public float HeightMetric { get; set; }
         public int HeightFeet { get; set; }
@@ -25,13 +25,13 @@ namespace NbaApp.Web.Responses
         public int? DraftPick { get; set; }
         public Guid DraftTeam { get; set; }
 
-        public PlayerResponse(string firstName, string lastName, DateTime? dateOfBirth, string nbaNetID, int age, float heightMetric, int heightFeet, float heightInches, int weightPounds, float weightKilograms,
+        public PlayerResponse(string nbaNetID, string firstName, string lastName, DateTime? dateOfBirth, int age, float heightMetric, int heightFeet, float heightInches, int weightPounds, float weightKilograms,
             Guid currentTeam, string college, string country, string jerseyNumber, int yearsPro, string position, int? draftYear, int? draftRound, int? draftPick, Guid draftTeam)
         {
+            ID = nbaNetID;
             FirstName = firstName;
             LastName = lastName;
             DateOfBirth = dateOfBirth;
-            NbaNetID = nbaNetID;
             Age = age;
             HeightMetric = heightMetric;
             HeightFeet = heightFeet;
