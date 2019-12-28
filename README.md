@@ -13,7 +13,7 @@ It requires .NET Core 3.1.0 (https://dotnet.microsoft.com/download/dotnet-core/3
  - https://localhost:5001/api/team-stats/{guid} -> Get team stats by ID
 
 ### Examples
- - LeBron James data -> https://localhost:5001/api/player/BBFE2A4F-57B3-4FBE-917D-D123A835179D
- - LeBron James current statistics -> https://localhost:5001/api/player-stats/BBFE2A4F-57B3-4FBE-917D-D123A835179D
- - Boston Celtics players -> https://localhost:5001/api/players/31CFED00-2BD1-4D07-83E1-7AF36302FD9B
- - Boston Celtics statistics -> https://localhost:5001/api/team-stats/31CFED00-2BD1-4D07-83E1-7AF36302FD9B
+ - LeBron James data -> https://localhost:5001/api/player/f21d7c4b-f4c0-432c-9ae2-5d7b5495b20f
+ - LeBron James current statistics -> https://localhost:5001/api/player-stats/f21d7c4b-f4c0-432c-9ae2-5d7b5495b20f
+ - Boston Celtics players -> https://localhost:5001/api/players/ff948c74-60e7-454b-8ad9-b92cd327001b
+ - Boston Celtics statistics -> https://localhost:5001/api/team-stats/ff948c74-60e7-454b-8ad9-b92cd327001b
