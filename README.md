@@ -14,8 +14,8 @@ It requires .NET Core 3.1.0 (https://dotnet.microsoft.com/download/dotnet-core/3
  - https://localhost:5001/api/team/{nickName} -> Get specific team by nickname
 
 ### Examples
- - Get LeBron James data by ID -> https://localhost:5001/api/player/f21d7c4b-f4c0-432c-9ae2-5d7b5495b20f
+ - Get LeBron James data by ID -> https://localhost:5001/api/player/7b2ef5af-c1ca-4c95-af22-b79d5a4ccfe4
  - Get LeBron James data by name -> https://localhost:5001/api/player/LeBron/James
- - Get LeBron James current statistics -> https://localhost:5001/api/player-stats/f21d7c4b-f4c0-432c-9ae2-5d7b5495b20f
+ - Get LeBron James current statistics -> https://localhost:5001/api/player-stats/7b2ef5af-c1ca-4c95-af22-b79d5a4ccfe4
  - Get Boston Celtics data by nickname -> https://localhost:5001/api/team/Celtics
- - Get Boston Celtics players -> https://localhost:5001/api/players/ff948c74-60e7-454b-8ad9-b92cd327001b
+ - Get Boston Celtics players -> https://localhost:5001/api/players/24544c21-df08-4839-8631-99f4f5911f21
