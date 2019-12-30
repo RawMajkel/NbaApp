@@ -5,14 +5,15 @@ namespace NbaApp.Common.Entities
     public class Team
     {
         #region Properties
-        public Guid ID { get; set; } = Guid.NewGuid();
-        public string NbaNetID { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string NbaNetId { get; set; }
         public string Name { get; set; }
         public string NickName { get; set; }
         public string Abbreviation { get; set; }
         public string Conference { get; set; }
         public string Division { get; set; }
-        public TeamStats Statistics { get; set; }
+        public Guid StatisticsId { get; set; }
+        public virtual TeamStats Statistics { get; set; }
         #endregion
 
         #region Properties
@@ -28,7 +29,7 @@ namespace NbaApp.Common.Entities
             Abbreviation = abbreviation;
             Conference = conference;
             Division = division;
-            NbaNetID = nbaNetID;
+            NbaNetId = nbaNetID;
         }
         #endregion
 

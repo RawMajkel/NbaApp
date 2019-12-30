@@ -25,8 +25,9 @@ namespace NbaApp.Web
             services.AddTransient<ApiService>();
 
             services.AddDbContext<Context>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("SqlConnectionString")));
+                options
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(Configuration.GetConnectionString("SqlConnectionString")));
 
             services.AddControllers();
         }

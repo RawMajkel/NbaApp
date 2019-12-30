@@ -68,7 +68,7 @@ namespace NbaApp.Services
 
                 //Stats
                 var stats = await Task.FromResult(_standingsData.League.Standard.Conference.West.Concat(_standingsData.League.Standard.Conference.East)
-                    .Where(x => x.TeamId == team.NbaNetID)
+                    .Where(x => x.TeamId == team.NbaNetId)
                     .Select(x => new TeamStats(x.TeamId, x.Wins, x.Losses, x.GamesBehind, x.ConferenceRank, x.HomeWins, x.HomeLosses, x.AwayWins, x.AwayLosses, x.WinningStreak))
                     .FirstOrDefault());
 
@@ -116,7 +116,7 @@ namespace NbaApp.Services
             await _context.SaveChangesAsync();
 
             /* Stats */
-            LoadPlayerStats(player.Player.NbaNetID).Wait();
+            LoadPlayerStats(player.Player.NbaNetId).Wait();
         }
 
         public async Task LoadPlayers()
@@ -152,7 +152,7 @@ namespace NbaApp.Services
 
                 /* Stats */
                 using WebClient client = new WebClient();
-                var statsJson = client.DownloadString(string.Format("https://data.nba.net/prod/v1/2019/players/{0}_profile.json", player.Player.NbaNetID));
+                var statsJson = client.DownloadString(string.Format("https://data.nba.net/prod/v1/2019/players/{0}_profile.json", player.Player.NbaNetId));
                 var statsData = JsonSerializer.Deserialize<NbaNetStatsData>(statsJson, _options);
 
                 var stats = new PlayerStats(
@@ -209,7 +209,7 @@ namespace NbaApp.Services
                 statsData.League.Standard.Stats.Latest.Turnovers);
 
             var player = await Task.FromResult(_context.Players
-                .Where(x => x.NbaNetID == nbaNetID)
+                .Where(x => x.NbaNetId == nbaNetID)
                 .FirstOrDefault());
 
             player.AddStatsInfo(stats);
@@ -222,8 +222,8 @@ namespace NbaApp.Services
         public async Task<Guid> GetTeamID(string nbaNetId)
         {
             return await Task.FromResult(_context.Teams
-                .Where(x => x.NbaNetID == nbaNetId)
-                .Select(x => x.ID)
+                .Where(x => x.NbaNetId == nbaNetId)
+                .Select(x => x.Id)
                 .FirstOrDefault());
         }
 

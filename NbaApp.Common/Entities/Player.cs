@@ -6,8 +6,8 @@ namespace NbaApp.Common.Entities
     public class Player
     {
         #region Properties
-        public Guid ID { get; set; } = Guid.NewGuid();
-        public string NbaNetID { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string NbaNetId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime? DateOfBirth { get; set; }
@@ -18,8 +18,10 @@ namespace NbaApp.Common.Entities
         public int WeightPounds { get; set; }
         public float WeightKilograms { get; set; }
         public Guid CurrentTeam { get; set; }
-        public PlayerStats Stats { get; set; }
-        public PlayerCareerInfo CareerInfo { get; set; }
+        public Guid StatsId { get; set; }
+        public Guid CareerInfoId { get; set; }
+        public virtual PlayerStats Stats { get; set; }
+        public virtual PlayerCareerInfo CareerInfo { get; set; }
         #endregion
 
         #region Constructors
@@ -33,7 +35,7 @@ namespace NbaApp.Common.Entities
             FirstName = firstName;
             LastName = lastName;
             CurrentTeam = currentTeam;
-            NbaNetID = nbaNetId;
+            NbaNetId = nbaNetId;
             HeightMetric = float.Parse(heightMetric, CultureInfo.InvariantCulture.NumberFormat);
             WeightPounds = int.Parse(weightLbs);
 

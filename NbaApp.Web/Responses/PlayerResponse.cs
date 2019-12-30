@@ -4,7 +4,7 @@ namespace NbaApp.Web.Responses
 {
     public class PlayerResponse
     {
-        public Guid ID { get; set; }
+        public Guid Id { get; set; }
         public string NbaNetID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -29,7 +29,7 @@ namespace NbaApp.Web.Responses
         public PlayerResponse(Guid id, string nbaNetID, string firstName, string lastName, DateTime? dateOfBirth, int age, float heightMetric, int heightFeet, float heightInches, int weightPounds, float weightKilograms,
             Guid currentTeam, string college, string country, string jerseyNumber, int yearsPro, string position, int? draftYear, int? draftRound, int? draftPick, Guid draftTeam)
         {
-            ID = id;
+            Id = id;
             NbaNetID = nbaNetID;
             FirstName = firstName;
             LastName = lastName;

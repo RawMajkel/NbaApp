@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using NbaApp.Common.Entities;
 using NbaApp.Persistance;
 using System;
@@ -17,48 +16,15 @@ namespace NbaApp.Services
         }
 
         #region Methods
-        public async Task<IEnumerable<Team>> GetTeams()
-        {
-            var teams = await Task.FromResult(_context.Teams
-                .Include(x => x.Statistics)
-                .AsEnumerable());
-            return teams;
-        }
+        /* Teams */
+        public async Task<IEnumerable<Team>> GetTeams() => await Task.FromResult(_context.Teams.AsEnumerable());
+        public async Task<Team> GetTeamById(Guid teamId) => await Task.FromResult(_context.Teams.FirstOrDefault(x => x.Id == teamId));
+        public async Task<Team> GetTeamByNickName(string nickName) => await Task.FromResult(_context.Teams.FirstOrDefault(x => x.NickName == nickName));
 
-        public async Task<Team> GetTeamById(Guid teamId)
-        {
-            var team = await Task.FromResult(_context.Teams
-                .Include(x => x.Statistics)
-                .FirstOrDefault(x => x.ID == teamId));
-
-            return team;
-        }
-
-        public async Task<Team> GetTeamByNickName(string nickName)
-        {
-            var team = await Task.FromResult(_context.Teams
-                .Include(x => x.Statistics)
-                .FirstOrDefault(x => x.NickName == nickName));
-            return team;
-        }
-
-        public async Task<IEnumerable<Player>> GetPlayers()
-        {
-            var players = await Task.FromResult(_context.Players
-                .Include(x => x.CareerInfo)
-                .AsEnumerable());
-
-            return players;
-        }
-
-        public async Task<Player> GetPlayerById(Guid playerId)
-        {
-            return await Task.FromResult(_context.Players
-                .Include(x => x.CareerInfo)
-                .Include(x => x.Stats)
-                .FirstOrDefault(x => x.ID == playerId));
-        }
-
+        /* Players */
+        public async Task<IEnumerable<Player>> GetPlayers() => await Task.FromResult(_context.Players.AsEnumerable());
+        public async Task<Player> GetPlayerById(Guid playerId) => await Task.FromResult(_context.Players.FirstOrDefault(x => x.Id == playerId));
+        public async Task<IEnumerable<Player>> GetPlayersFromTeam(Guid teamId) => await Task.FromResult(_context.Players.Where(x => x.CurrentTeam == teamId));
         public async Task<Player> GetPlayerByName(string firstName, string lastName)
         {
             if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
@@ -67,20 +33,8 @@ namespace NbaApp.Services
                 return null;
             }
 
-            var player = await Task.FromResult(_context.Players
-                .Include(x => x.CareerInfo)
-                .FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName));
-
+            var player = await Task.FromResult(_context.Players.FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName));
             return player;
-        }
-
-        public async Task<IEnumerable<Player>> GetPlayersFromTeam(Guid teamId)
-        {
-            var players = await Task.FromResult(_context.Players
-                .Include(x => x.CareerInfo)
-                .Where(x => x.CurrentTeam == teamId));
-
-            return players;
         }
 
         public async Task<PlayerStats> GetPlayerStatsById(Guid playerId)

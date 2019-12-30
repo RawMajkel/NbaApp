@@ -1,8 +1,11 @@
-﻿namespace NbaApp.Web.Responses
+﻿using System;
+
+namespace NbaApp.Web.Responses
 {
     public class TeamResponse
     {
-        public string ID { get; set; }
+        public Guid Id { get; set; }
+        public string NbaNetID { get; set; }
         public string Name { get; set; }
         public string NickName { get; set; }
         public string Abbreviation { get; set; }
@@ -18,10 +21,11 @@
         public int AwayLosses { get; set; }
         public int WinningStreak { get; set; }
 
-        public TeamResponse(string id, string name, string nickName, string abbreviation, string conference, string division, int wins, int losses, double gamesBehind, int conferenceRank,
+        public TeamResponse(Guid id, string nbaNetid, string name, string nickName, string abbreviation, string conference, string division, int wins, int losses, double gamesBehind, int conferenceRank,
             int homeWins, int homeLosses, int awayWins, int awayLosses, int winningStreak)
         {
-            ID = id;
+            Id = id;
+            NbaNetID = nbaNetid;
             Name = name;
             NickName = nickName;
             Abbreviation = abbreviation;

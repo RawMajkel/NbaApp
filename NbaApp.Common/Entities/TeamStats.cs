@@ -5,7 +5,7 @@ namespace NbaApp.Common.Entities
     public class TeamStats
     {
         #region Properties
-        public Guid ID { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string TeamId { get; set; }
         public int Wins { get; set; }
         public int Losses { get; set; }
@@ -28,7 +28,6 @@ namespace NbaApp.Common.Entities
             string awayWins, string awayLosses, string winningStreak)
         {
             TeamId = teamId;
-
             Wins = int.Parse(wins);
             Losses = int.Parse(losses);
             GamesBehind = double.Parse(gamesBehind);

@@ -5,7 +5,7 @@ namespace NbaApp.Common.Entities
     public class PlayerStats
     {
         #region Properties
-        public Guid ID { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         /* --- basic --- */
         public int GamesPlayed { get; set; }

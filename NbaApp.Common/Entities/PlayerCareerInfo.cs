@@ -5,7 +5,7 @@ namespace NbaApp.Common.Entities
     public class PlayerCareerInfo
     {
         #region Properties
-        public Guid ID { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string College { get; set; }
         public string Country { get; set; }
         public string JerseyNumber { get; set; }

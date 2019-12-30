@@ -25,8 +25,8 @@ namespace NbaApp.Web.Controllers
             foreach (var player in players)
             {
                 result.Add(new PlayerResponse(
-                    player.ID,
-                    player.NbaNetID,
+                    player.Id,
+                    player.NbaNetId,
                     player.FirstName,
                     player.LastName,
                     player.DateOfBirth,
@@ -61,8 +61,8 @@ namespace NbaApp.Web.Controllers
             foreach (var player in players)
             {
                 result.Add(new PlayerResponse(
-                    player.ID,
-                    player.NbaNetID,
+                    player.Id,
+                    player.NbaNetId,
                     player.FirstName,
                     player.LastName,
                     player.DateOfBirth,
@@ -125,8 +125,8 @@ namespace NbaApp.Web.Controllers
             }
 
             return new PlayerResponse(
-                player.ID,
-                player.NbaNetID,
+                player.Id,
+                player.NbaNetId,
                 player.FirstName,
                 player.LastName,
                 player.DateOfBirth,
@@ -160,8 +160,8 @@ namespace NbaApp.Web.Controllers
             }
 
             return new PlayerResponse(
-                player.ID,
-                player.NbaNetID,
+                player.Id,
+                player.NbaNetId,
                 player.FirstName,
                 player.LastName,
                 player.DateOfBirth,

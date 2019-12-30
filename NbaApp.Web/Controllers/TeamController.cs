@@ -30,7 +30,8 @@ namespace NbaApp.Web.Controllers
             foreach (var team in teams)
             {
                 result.Add(new TeamResponse(
-                    team.NbaNetID,
+                    team.Id,
+                    team.NbaNetId,
                     team.Name,
                     team.NickName,
                     team.Abbreviation,
@@ -62,7 +63,8 @@ namespace NbaApp.Web.Controllers
             }
 
             return new TeamResponse(
-                team.NbaNetID,
+                team.Id,
+                team.NbaNetId,
                 team.Name,
                 team.NickName,
                 team.Abbreviation,
@@ -91,7 +93,8 @@ namespace NbaApp.Web.Controllers
             }
 
             return new TeamResponse(
-                team.NbaNetID,
+                team.Id,
+                team.NbaNetId,
                 team.Name,
                 team.NickName,
                 team.Abbreviation,
