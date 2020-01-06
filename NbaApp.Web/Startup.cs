@@ -31,7 +31,7 @@ namespace NbaApp.Web
 
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
             {
-                builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+                builder.WithOrigins("http://localhost:5001").AllowAnyMethod().AllowAnyHeader();
             }));
             services.AddControllers();
         }
