@@ -47,6 +47,9 @@ namespace NbaApp.Services
 
             await LoadTeams();
             await LoadPlayers();
+
+            _context.BaseUpdates.Add(new UpdateInfo());
+            await _context.SaveChangesAsync();
         }
 
         public async Task LoadTeams()

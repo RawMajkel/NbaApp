@@ -24,6 +24,17 @@ namespace NbaApp.Common.Entities
 
         public Team(string name, string nickName, string abbreviation, string conference, string division, string nbaNetID)
         {
+            Console.WriteLine(" - adding team: {0}", nickName);
+
+            if(name.Contains(" "))
+            {
+                Name = name.Substring(0, name.IndexOf(" "));
+            }
+            else
+            {
+                Name = name;
+            }
+
             Name = name;
             NickName = nickName;
             Abbreviation = abbreviation;

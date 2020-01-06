@@ -16,6 +16,9 @@ namespace NbaApp.Services
         }
 
         #region Methods
+        /* Info */
+        public async Task<UpdateInfo> GetInfo() => await Task.FromResult(_context.BaseUpdates.FirstOrDefault());
+
         /* Teams */
         public async Task<IEnumerable<Team>> GetTeams() => await Task.FromResult(_context.Teams.AsEnumerable());
         public async Task<Team> GetTeamById(Guid teamId) => await Task.FromResult(_context.Teams.FirstOrDefault(x => x.Id == teamId));
