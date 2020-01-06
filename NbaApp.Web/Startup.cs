@@ -29,11 +29,15 @@ namespace NbaApp.Web
                     .UseLazyLoadingProxies()
                     .UseSqlServer(Configuration.GetConnectionString("SqlConnectionString")));
 
+            services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+            }));
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env, NbaNetService nbaNetService)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env/*, NbaNetService nbaNetService*/)
         {
             //Uncomment the line below to update database (from data.nba.net services)
             //nbaNetService.UpdateDatabase().Wait();
@@ -46,6 +50,12 @@ namespace NbaApp.Web
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
 
             app.UseEndpoints(endpoints =>
             {
