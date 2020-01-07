@@ -3,6 +3,7 @@ using NbaApp.Services;
 using NbaApp.Web.Responses;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace NbaApp.Web.Controllers
@@ -30,12 +31,12 @@ namespace NbaApp.Web.Controllers
                     player.FirstName,
                     player.LastName,
                     player.DateOfBirth,
-                    player.Age.Value,
-                    player.HeightMetric.Value,
-                    player.HeightFeet.Value,
-                    player.HeightInches.Value,
-                    player.WeightPounds.Value,
-                    player.WeightKilograms.Value,
+                    player.Age,
+                    player.HeightMetric,
+                    player.HeightFeet,
+                    player.HeightInches,
+                    player.WeightPounds,
+                    player.WeightKilograms,
                     player.CurrentTeam,
                     player.CareerInfo.College,
                     player.CareerInfo.Country,
@@ -45,7 +46,7 @@ namespace NbaApp.Web.Controllers
                     player.CareerInfo.DraftYear,
                     player.CareerInfo.DraftRound,
                     player.CareerInfo.DraftPick,
-                    player.CareerInfo.DraftTeam.GetValueOrDefault()
+                    player.CareerInfo.DraftTeam
                 ));
             }
 
@@ -60,18 +61,18 @@ namespace NbaApp.Web.Controllers
 
             foreach (var player in players)
             {
-                result.Add(new PlayerResponse(
+                var temp = new PlayerResponse(
                     player.Id,
                     player.NbaNetId,
                     player.FirstName,
                     player.LastName,
                     player.DateOfBirth,
-                    player.Age.Value,
-                    player.HeightMetric.Value,
-                    player.HeightFeet.Value,
-                    player.HeightInches.Value,
-                    player.WeightPounds.Value,
-                    player.WeightKilograms.Value,
+                    player.Age,
+                    player.HeightMetric,
+                    player.HeightFeet,
+                    player.HeightInches,
+                    player.WeightPounds,
+                    player.WeightKilograms,
                     player.CurrentTeam,
                     player.CareerInfo.College,
                     player.CareerInfo.Country,
@@ -81,11 +82,12 @@ namespace NbaApp.Web.Controllers
                     player.CareerInfo.DraftYear,
                     player.CareerInfo.DraftRound,
                     player.CareerInfo.DraftPick,
-                    player.CareerInfo.DraftTeam.GetValueOrDefault()
-                ));
+                    player.CareerInfo.DraftTeam
+                );
+                result.Add(temp);
             }
 
-            return result;
+            return result.OrderBy(x => x.FirstName).ThenBy(x => x.LastName).ToList();
         }
 
         [HttpGet("player-stats/{playerId:guid}")]
@@ -130,12 +132,12 @@ namespace NbaApp.Web.Controllers
                 player.FirstName,
                 player.LastName,
                 player.DateOfBirth,
-                player.Age.Value,
-                player.HeightMetric.Value,
-                player.HeightFeet.Value,
-                player.HeightInches.Value,
-                player.WeightPounds.Value,
-                player.WeightKilograms.Value,
+                player.Age,
+                player.HeightMetric,
+                player.HeightFeet,
+                player.HeightInches,
+                player.WeightPounds,
+                player.WeightKilograms,
                 player.CurrentTeam,
                 player.CareerInfo.College,
                 player.CareerInfo.Country,
@@ -145,7 +147,7 @@ namespace NbaApp.Web.Controllers
                 player.CareerInfo.DraftYear,
                 player.CareerInfo.DraftRound,
                 player.CareerInfo.DraftPick,
-                player.CareerInfo.DraftTeam.GetValueOrDefault()
+                player.CareerInfo.DraftTeam
             );
         }
 
@@ -165,12 +167,12 @@ namespace NbaApp.Web.Controllers
                 player.FirstName,
                 player.LastName,
                 player.DateOfBirth,
-                player.Age.Value,
-                player.HeightMetric.Value,
-                player.HeightFeet.Value,
-                player.HeightInches.Value,
-                player.WeightPounds.Value,
-                player.WeightKilograms.Value,
+                player.Age,
+                player.HeightMetric,
+                player.HeightFeet,
+                player.HeightInches,
+                player.WeightPounds,
+                player.WeightKilograms,
                 player.CurrentTeam,
                 player.CareerInfo.College,
                 player.CareerInfo.Country,
@@ -180,7 +182,7 @@ namespace NbaApp.Web.Controllers
                 player.CareerInfo.DraftYear,
                 player.CareerInfo.DraftRound,
                 player.CareerInfo.DraftPick,
-                player.CareerInfo.DraftTeam.GetValueOrDefault()
+                player.CareerInfo.DraftTeam
             );
         }
     }

@@ -30,9 +30,11 @@ namespace NbaApp.Common.Entities
 
         }
 
-        public Player(string firstName, string lastName, string dateOfBirth, string heightMetric, string weightLbs, Guid currentTeam, string nbaNetId)
+        public Player(string firstName, string lastName, string dateOfBirth, string heightMetric, string weightLbs, Guid currentTeam, string nbaNetId, bool loggingEnabled = false)
         {
-            Console.WriteLine(" - adding player: {0} {1}", firstName, lastName);
+            if (loggingEnabled) { 
+                Console.WriteLine(" - adding player: {0} {1}", firstName, lastName);
+            }
 
             FirstName = firstName;
             LastName = lastName;
@@ -44,7 +46,7 @@ namespace NbaApp.Common.Entities
             {
                 HeightMetric = float.Parse(heightMetric, CultureInfo.InvariantCulture.NumberFormat);
                 HeightFeet = (int)Math.Floor(HeightMetric.Value * 0.393700787 * 100 / 12);
-                HeightInches = (float)(HeightMetric * 0.393700787 * 100 % 12);
+                HeightInches = (float)(Math.Round((double)(HeightMetric * 0.393700787 * 100 % 12), 2));
             }
             else
             {
@@ -56,7 +58,7 @@ namespace NbaApp.Common.Entities
             if (int.TryParse(weightLbs, out int i))
             {
                 WeightPounds = i;
-                WeightKilograms = (float)(WeightPounds / 2.20462262);
+                WeightKilograms = (float)(Math.Round((double)(WeightPounds / 2.20462262), 2));
             }
             else
             {
@@ -66,12 +68,16 @@ namespace NbaApp.Common.Entities
 
             if (!string.IsNullOrEmpty(dateOfBirth))
             {
-                var year = DateTime.Parse(dateOfBirth, new CultureInfo("pl-PL")).Year;
-                Age = DateTime.Now.Year - year;
+                var birthDate = DateTime.Parse(dateOfBirth, new CultureInfo("pl-PL"));
+                var today = DateTime.Today;
+
+                Age = today.Year - birthDate.Year;
+                if (birthDate > today.AddYears(-Age.Value)) Age--;
             }
             else
             {
                 Age = null;
+                DateOfBirth = null;
             }
         }
         #endregion

@@ -9,12 +9,12 @@ namespace NbaApp.Web.Responses
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string DateOfBirth { get; set; }
-        public int Age { get; set; }
-        public float HeightMetric { get; set; }
-        public int HeightFeet { get; set; }
-        public float HeightInches { get; set; }
-        public int WeightPounds { get; set; }
-        public float WeightKilograms { get; set; }
+        public int? Age { get; set; }
+        public float? HeightMetric { get; set; }
+        public int? HeightFeet { get; set; }
+        public float? HeightInches { get; set; }
+        public int? WeightPounds { get; set; }
+        public float? WeightKilograms { get; set; }
         public Guid CurrentTeam { get; set; }
         public string College { get; set; }
         public string Country { get; set; }
@@ -24,10 +24,10 @@ namespace NbaApp.Web.Responses
         public int? DraftYear { get; set; }
         public int? DraftRound { get; set; }
         public int? DraftPick { get; set; }
-        public Guid DraftTeam { get; set; }
+        public Guid? DraftTeam { get; set; }
 
-        public PlayerResponse(Guid id, string nbaNetID, string firstName, string lastName, string dateOfBirth, int age, float heightMetric, int heightFeet, float heightInches, int weightPounds, float weightKilograms,
-            Guid currentTeam, string college, string country, string jerseyNumber, int yearsPro, string position, int? draftYear, int? draftRound, int? draftPick, Guid draftTeam)
+        public PlayerResponse(Guid id, string nbaNetID, string firstName, string lastName, string dateOfBirth, int? age, float? heightMetric, int? heightFeet, float? heightInches, int? weightPounds, float? weightKilograms,
+            Guid currentTeam, string college, string country, string jerseyNumber, int yearsPro, string position, int? draftYear, int? draftRound, int? draftPick, Guid? draftTeam)
         {
             Id = id;
             NbaNetID = nbaNetID;

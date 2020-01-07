@@ -12,14 +12,11 @@ namespace NbaApp.Services
 {
     public class NbaNetService : BaseService
     {
-        #region Fields
         private readonly NbaNetPlayersData _playersData;
         private readonly NbaNetTeamsData _teamsData;
         private readonly NbaNetStandingsData _standingsData;
         private readonly JsonSerializerOptions _options;
-        #endregion
 
-        #region Constructors
         public NbaNetService(Context context, IConfiguration configuration) : base(context, configuration)
         {
             _options = new JsonSerializerOptions
@@ -37,7 +34,6 @@ namespace NbaApp.Services
             _teamsData = JsonSerializer.Deserialize<NbaNetTeamsData>(teamsJson, _options);
             _standingsData = JsonSerializer.Deserialize<NbaNetStandingsData>(standingsJson, _options);
         }
-        #endregion
 
         #region Methods
         public async Task UpdateDatabase()
@@ -46,7 +42,7 @@ namespace NbaApp.Services
             _context.Database.EnsureCreated();
 
             await LoadTeams();
-            await LoadPlayers();
+            await LoadPlayers(true);
 
             _context.BaseUpdates.Add(new UpdateInfo());
             await _context.SaveChangesAsync();
@@ -122,7 +118,7 @@ namespace NbaApp.Services
             LoadPlayerStats(player.Player.NbaNetId).Wait();
         }
 
-        public async Task LoadPlayers()
+        public async Task LoadPlayers(bool loggingEnabled = false)
         {
             var players = await Task.FromResult(_playersData.League.Players
                 .Where(x => x.IsActive == true)
@@ -134,7 +130,8 @@ namespace NbaApp.Services
                         x.HeightMetric,
                         x.WeightLbs,
                         GetTeamID(x.TeamID).Result,
-                        x.PersonID
+                        x.PersonID,
+                        loggingEnabled
                     ),
                     new PlayerCareerInfo(
                         x.College,
@@ -229,7 +226,6 @@ namespace NbaApp.Services
                 .Select(x => x.Id)
                 .FirstOrDefault());
         }
-
         #endregion
     }
 }

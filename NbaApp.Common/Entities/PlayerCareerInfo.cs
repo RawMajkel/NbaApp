@@ -34,7 +34,7 @@ namespace NbaApp.Common.Entities
             DraftRound = int.TryParse(draftRound, out i) ? (int?)i : null;
             DraftPick = int.TryParse(draftPick, out i) ? (int?)i : null;
 
-            College = string.IsNullOrEmpty(college) ? null : college;
+            College = string.IsNullOrEmpty(college) || college == " " ? "No College" : college;
 
             if (!string.IsNullOrEmpty(debutYear))
             {
