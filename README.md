@@ -15,8 +15,8 @@ It requires .NET Core 3.1.0 (https://dotnet.microsoft.com/download/dotnet-core/3
  - https://localhost:5001/api/info -> Get informations about the App
 
 ### Examples
- - Get LeBron James data by ID -> https://localhost:5001/api/player/d14fee37-18f5-4190-8ffc-7c5edc76f288
+ - Get LeBron James data by ID -> https://localhost:5001/api/player/b5afd3b6-337a-44a0-9057-a4c63652b05d
  - Get LeBron James data by name -> https://localhost:5001/api/player/LeBron/James
- - Get LeBron James current statistics -> https://localhost:5001/api/player-stats/d14fee37-18f5-4190-8ffc-7c5edc76f288
+ - Get LeBron James current statistics -> https://localhost:5001/api/player-stats/b5afd3b6-337a-44a0-9057-a4c63652b05d
  - Get Boston Celtics data by nickname -> https://localhost:5001/api/team/Celtics
- - Get Boston Celtics players -> https://localhost:5001/api/players/c6039cd8-0fac-4634-92b8-38c0f4942415
+ - Get Boston Celtics players -> https://localhost:5001/api/players/9e841b57-3b01-4ae8-9e5b-bf08d87e613c
