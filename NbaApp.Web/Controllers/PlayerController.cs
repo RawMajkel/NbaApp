@@ -17,10 +17,16 @@ namespace NbaApp.Web.Controllers
 
         }
 
-        [HttpGet("players")]
-        public async Task<ActionResult<List<PlayerResponse>>> GetAllPlayers()
+        [HttpGet("players/")]
+        public async Task<ActionResult<List<PlayerResponse>>> GetAllPlayers([FromQuery(Name = "perPage")] int perPage = 0, [FromQuery(Name = "page")] int page = 0)
         {
-            var players = await _apiService.GetPlayers();
+            var players = await _apiService.GetPlayers(perPage, page);
+
+            if(players == null)
+            {
+                return NotFound();
+            }
+
             var result = new List<PlayerResponse>();
 
             foreach (var player in players)
@@ -54,7 +60,7 @@ namespace NbaApp.Web.Controllers
         }
 
         [HttpGet("players/{teamId:guid}")]
-        public async Task<ActionResult<List<PlayerResponse>>> GetPlayers(Guid teamId)
+        public async Task<ActionResult<List<PlayerResponse>>> GetPlayers( Guid teamId)
         {
             var players = await _apiService.GetPlayersFromTeam(teamId);
             var result = new List<PlayerResponse>();
