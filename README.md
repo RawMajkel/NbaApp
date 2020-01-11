@@ -4,7 +4,7 @@ NbaApp is an ASP.NET Core Web API application.
 It requires .NET Core 3.1.0 (https://dotnet.microsoft.com/download/dotnet-core/3.1) and Visual Studio 2019 16.4 or later (https://docs.microsoft.com/pl-pl/visualstudio/releases/2019/release-notes)
 
 ## Web API
- - https://localhost:5001/api/players/ -> Get all active NBA players
+ - https://localhost:5001/api/players/ -> Get all active NBA players (parameters: "perPage", "page" let you manipulate data)
  - https://localhost:5001/api/players/{guid:id} -> Get players from specific team by team ID
  - https://localhost:5001/api/player/{guid:id} -> Get specific player by player's ID
  - https://localhost:5001/api/player/{firstName}/{lastName} -> Get specific player by name
@@ -15,6 +15,7 @@ It requires .NET Core 3.1.0 (https://dotnet.microsoft.com/download/dotnet-core/3
  - https://localhost:5001/api/info -> Get informations about the App
 
 ### Examples
+ - Get second page of 15 per page players -> https://localhost:5001/api/player?perPage=15&page=2
  - Get LeBron James data by ID -> https://localhost:5001/api/player/b5afd3b6-337a-44a0-9057-a4c63652b05d
  - Get LeBron James data by name -> https://localhost:5001/api/player/LeBron/James
  - Get LeBron James current statistics -> https://localhost:5001/api/player-stats/b5afd3b6-337a-44a0-9057-a4c63652b05d
