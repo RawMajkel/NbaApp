@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NbaApp.Web.Responses
+﻿namespace NbaApp.Web.Responses
 {
     public class InfoResponse
     {

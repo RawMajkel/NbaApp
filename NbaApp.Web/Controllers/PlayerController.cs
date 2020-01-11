@@ -18,7 +18,7 @@ namespace NbaApp.Web.Controllers
         }
 
         [HttpGet("players/")]
-        public async Task<ActionResult<List<PlayerResponse>>> GetAllPlayers([FromQuery(Name = "perPage")] int perPage = 0, [FromQuery(Name = "page")] int page = 0)
+        public async Task<ActionResult<PlayersResponse>> GetAllPlayers([FromQuery(Name = "perPage")] int perPage = 0, [FromQuery(Name = "page")] int page = 0)
         {
             var players = await _apiService.GetPlayers(perPage, page);
 
@@ -27,11 +27,12 @@ namespace NbaApp.Web.Controllers
                 return NotFound();
             }
 
-            var result = new List<PlayerResponse>();
+            var result = new PlayersResponse();
+            var playerList = new List<PlayerResponse>();
 
             foreach (var player in players)
             {
-                result.Add(new PlayerResponse(
+                playerList.Add(new PlayerResponse(
                     player.Id,
                     player.NbaNetId,
                     player.FirstName,
@@ -55,6 +56,11 @@ namespace NbaApp.Web.Controllers
                     player.CareerInfo.DraftTeam
                 ));
             }
+
+            result.Players = playerList;
+
+            var responseInfo = await _apiService.GetPlayerResponseInfo(perPage);
+            result.Meta = new PlayersResponseInfo(responseInfo.Item1, responseInfo.Item2);
 
             return result;
         }

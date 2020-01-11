@@ -25,16 +25,18 @@ namespace NbaApp.Services
         public async Task<Team> GetTeamByNickName(string nickName) => await Task.FromResult(_context.Teams.FirstOrDefault(x => x.NickName == nickName));
 
         /* Players */
+        public async Task<(int, int)> GetPlayerResponseInfo(int perPage)
+        {
+            var total = await Task.FromResult(_context.Players.Count());
+            var lastPage = total / perPage;
+
+            return (total, lastPage);
+        }
+
         public async Task<IEnumerable<Player>> GetPlayers(int perPage, int page)
         {
             var limited = perPage != 0 ? true : false;
             var offseted = page != 0 ? true : false;
-
-            // perPage=10 page=2
-            // page 1 : 0 - 9 -> Take 10
-            // page 2 : 10 - 19 -> Take 10, Skip 10
-            // page 3 : 20 - 29 -> Take 10, Skip 20
-            // page 4 : 30 - 39 -> Take 10, Skip 30
 
             if (limited && !offseted)
             {
