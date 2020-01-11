@@ -28,9 +28,12 @@ namespace NbaApp.Services
         public async Task<(int, int)> GetPlayerResponseInfo(int perPage)
         {
             var total = await Task.FromResult(_context.Players.Count());
-            var lastPage = total / perPage;
 
-            return (total, lastPage);
+            if(perPage != 0) {
+                return (total, total / perPage);
+            }
+
+            return (total, 1);
         }
 
         public async Task<IEnumerable<Player>> GetPlayers(int perPage, int page)
