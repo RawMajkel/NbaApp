@@ -37,10 +37,10 @@ namespace NbaApp.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env/*, NbaNetService nbaNetService*/)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env, NbaNetService nbaNetService)
         {
             //Uncomment the line below to update database (from data.nba.net services)
-            //nbaNetService.UpdateDatabase().Wait();
+            nbaNetService.UpdateDatabase().Wait();
 
             if (env.IsDevelopment())
             {

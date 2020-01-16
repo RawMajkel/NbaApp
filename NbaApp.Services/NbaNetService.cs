@@ -35,7 +35,6 @@ namespace NbaApp.Services
             _standingsData = JsonSerializer.Deserialize<NbaNetStandingsData>(standingsJson, _options);
         }
 
-        #region Methods
         public async Task UpdateDatabase()
         {
             _context.Database.EnsureDeleted();
@@ -44,7 +43,7 @@ namespace NbaApp.Services
             await LoadTeams();
             await LoadPlayers(true);
 
-            _context.BaseUpdates.Add(new UpdateInfo());
+            _context.AppInfo.Add(new AppInfo());
             await _context.SaveChangesAsync();
         }
 
@@ -71,7 +70,7 @@ namespace NbaApp.Services
                     .Select(x => new TeamStats(x.TeamId, x.Wins, x.Losses, x.GamesBehind, x.ConferenceRank, x.HomeWins, x.HomeLosses, x.AwayWins, x.AwayLosses, x.WinningStreak))
                     .FirstOrDefault());
 
-                team.AddStats(stats);
+                team.Stats = stats;
 
                 _context.TeamStats.Add(stats);
             }
@@ -107,7 +106,8 @@ namespace NbaApp.Services
                  ))
                 .FirstOrDefault());
 
-            player.Player.AddCareerInfo(player.PlayerCareerInfo);
+            //player.Player.AddCareerInfo(player.PlayerCareerInfo);
+            player.Player.CareerInfo = player.PlayerCareerInfo;
 
             _context.Players.Add(player.Player);
             _context.PlayerCareerInfos.Add(player.PlayerCareerInfo);
@@ -130,8 +130,7 @@ namespace NbaApp.Services
                         x.HeightMetric,
                         x.WeightLbs,
                         GetTeamID(x.TeamID).Result,
-                        x.PersonID,
-                        loggingEnabled
+                        x.PersonID
                     ),
                     new PlayerCareerInfo(
                         x.College,
@@ -148,7 +147,12 @@ namespace NbaApp.Services
 
             foreach (var player in players)
             {
-                player.Player.AddCareerInfo(player.PlayerCareerInfo);
+                if (loggingEnabled)
+                {
+                    Console.WriteLine($" - loading player {player.Player.FirstName} {player.Player.LastName}");
+                }
+
+                player.Player.CareerInfo = player.PlayerCareerInfo;
 
                 /* Stats */
                 using WebClient client = new WebClient();
@@ -174,7 +178,7 @@ namespace NbaApp.Services
                     statsData.League.Standard.Stats.Latest.Turnovers);
 
 
-                player.Player.AddStatsInfo(stats);
+                player.Player.Stats = stats;
 
                 _context.Players.Add(player.Player);
                 _context.PlayerCareerInfos.Add(player.PlayerCareerInfo);
@@ -212,7 +216,7 @@ namespace NbaApp.Services
                 .Where(x => x.NbaNetId == nbaNetID)
                 .FirstOrDefault());
 
-            player.AddStatsInfo(stats);
+            player.Stats = stats;
 
             _context.PlayerStats.Add(stats);
 
@@ -226,6 +230,5 @@ namespace NbaApp.Services
                 .Select(x => x.Id)
                 .FirstOrDefault());
         }
-        #endregion
     }
 }

@@ -15,35 +15,22 @@ namespace NbaApp.Services
 
         }
 
-        #region Methods
-        /* Info */
-        public async Task<UpdateInfo> GetInfo() => await Task.FromResult(_context.BaseUpdates.FirstOrDefault());
-
-        /* Teams */
-        public async Task<IEnumerable<Team>> GetTeams() => await Task.FromResult(_context.Teams.AsEnumerable());
-        public async Task<Team> GetTeamById(Guid teamId) => await Task.FromResult(_context.Teams.FirstOrDefault(x => x.Id == teamId));
-        public async Task<Team> GetTeamByNickName(string nickName) => await Task.FromResult(_context.Teams.FirstOrDefault(x => x.NickName == nickName));
-
-        /* Players */
-        public async Task<(int, int)> GetPlayerResponseInfo(int perPage)
+        public async Task<IEnumerable<TEntity>> Get<TEntity>(int perPage = 0, int page = 0)
+            where TEntity : class
         {
-            var total = await Task.FromResult(_context.Players.Count());
-
-            if(perPage != 0) {
-                return (total, total / perPage);
-            }
-
-            return (total, 1);
-        }
-
-        public async Task<IEnumerable<Player>> GetPlayers(int perPage, int page)
-        {
-            var limited = perPage != 0 ? true : false;
-            var offseted = page != 0 ? true : false;
+            var limited = perPage == 0 ? false : true;
+            var offseted = page == 0 ? false : true;
 
             if (limited && !offseted)
             {
-                return await Task.FromResult(_context.Players
+                return await Task.FromResult(_context.Set<TEntity>()
+                    .Take(perPage)
+                    .AsEnumerable());
+            }
+            else if (offseted && limited)
+            {
+                return await Task.FromResult(_context.Set<TEntity>()
+                    .Skip((page - 1) * perPage)
                     .Take(perPage)
                     .AsEnumerable());
             }
@@ -51,34 +38,37 @@ namespace NbaApp.Services
             {
                 return null;
             }
-            else if (offseted && limited)
-            {
-                return await Task.FromResult(_context.Players
-                    .Skip((page - 1) * perPage)
-                    .Take(perPage)
-                    .AsEnumerable());
-            }
-            return await Task.FromResult(_context.Players.AsEnumerable());
+            return await Task.FromResult(_context.Set<TEntity>().AsEnumerable());
         }
-        public async Task<Player> GetPlayerById(Guid playerId) => await Task.FromResult(_context.Players.FirstOrDefault(x => x.Id == playerId));
+        public async Task<(int, int)> GetEntityInfo<TEntity>(int perPage)
+            where TEntity : class
+        {
+            var total = await Task.FromResult(_context.Set<TEntity>().Count());
+
+            if (perPage != 0)
+            {
+                return (total, total / perPage);
+            }
+            return (total, 1);
+        }
+
+        public async Task<TEntity> GetEntityById<TEntity>(Guid id)
+            where TEntity : BaseEntity
+        {
+            return await Task.FromResult(_context.Set<TEntity>().FirstOrDefault(x => x.Id == id));
+        }
+
         public async Task<IEnumerable<Player>> GetPlayersFromTeam(Guid teamId) => await Task.FromResult(_context.Players.Where(x => x.CurrentTeam == teamId));
+        public async Task<Team> GetTeamByNickName(string nickName) => await Task.FromResult(_context.Teams.FirstOrDefault(x => x.NickName == nickName));
         public async Task<Player> GetPlayerByName(string firstName, string lastName)
         {
             if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
             {
-                Console.WriteLine("Invalid parameters");
                 return null;
             }
 
             var player = await Task.FromResult(_context.Players.FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName));
             return player;
         }
-
-        public async Task<PlayerStats> GetPlayerStatsById(Guid playerId)
-        {
-            var player = await GetPlayerById(playerId);
-            return player.Stats;
-        }
-        #endregion
     }
 }

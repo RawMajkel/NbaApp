@@ -2,12 +2,11 @@
 
 namespace NbaApp.Common.Entities
 {
-    public class UpdateInfo
+    public class AppInfo : BaseEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
         public DateTime UpdateDate { get; set; } = DateTime.Now;
 
-        public UpdateInfo()
+        public AppInfo()
         {
 
         }

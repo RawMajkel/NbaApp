@@ -2,9 +2,8 @@
 
 namespace NbaApp.Common.Entities
 {
-    public class Team
+    public class Team : BaseEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
         public string NbaNetId { get; set; }
         public string Name { get; set; }
         public string NickName { get; set; }
@@ -12,7 +11,7 @@ namespace NbaApp.Common.Entities
         public string Conference { get; set; }
         public string Division { get; set; }
         public Guid StatisticsId { get; set; }
-        public virtual TeamStats Statistics { get; set; }
+        public virtual TeamStats Stats { get; set; }
 
         public Team()
         {
@@ -27,11 +26,6 @@ namespace NbaApp.Common.Entities
             Conference = conference;
             Division = division;
             NbaNetId = nbaNetID;
-        }
-
-        public void AddStats(TeamStats stats)
-        {
-            Statistics = stats;
         }
     }
 }

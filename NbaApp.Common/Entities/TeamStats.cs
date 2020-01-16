@@ -2,10 +2,8 @@
 
 namespace NbaApp.Common.Entities
 {
-    public class TeamStats
+    public class TeamStats : BaseEntity
     {
-        #region Properties
-        public Guid Id { get; set; } = Guid.NewGuid();
         public string TeamId { get; set; }
         public int Wins { get; set; }
         public int Losses { get; set; }
@@ -16,9 +14,7 @@ namespace NbaApp.Common.Entities
         public int AwayWins { get; set; }
         public int AwayLosses { get; set; }
         public int WinningStreak { get; set; }
-        #endregion
 
-        #region Constructors
         public TeamStats()
         {
 
@@ -38,6 +34,5 @@ namespace NbaApp.Common.Entities
             AwayLosses = int.Parse(awayLosses);
             WinningStreak = int.Parse(winningStreak);
         }
-        #endregion
     }
 }

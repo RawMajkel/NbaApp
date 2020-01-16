@@ -3,10 +3,8 @@ using System.Globalization;
 
 namespace NbaApp.Common.Entities
 {
-    public class Player
+    public class Player : BaseEntity
     {
-        #region Properties
-        public Guid Id { get; set; } = Guid.NewGuid();
         public string NbaNetId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -22,20 +20,14 @@ namespace NbaApp.Common.Entities
         public Guid CareerInfoId { get; set; }
         public virtual PlayerStats Stats { get; set; }
         public virtual PlayerCareerInfo CareerInfo { get; set; }
-        #endregion
 
-        #region Constructors
         public Player()
         {
 
         }
 
-        public Player(string firstName, string lastName, string dateOfBirth, string heightMetric, string weightLbs, Guid currentTeam, string nbaNetId, bool loggingEnabled = false)
+        public Player(string firstName, string lastName, string dateOfBirth, string heightMetric, string weightLbs, Guid currentTeam, string nbaNetId)
         {
-            if (loggingEnabled) { 
-                Console.WriteLine(" - adding player: {0} {1}", firstName, lastName);
-            }
-
             FirstName = firstName;
             LastName = lastName;
             CurrentTeam = currentTeam;
@@ -80,11 +72,5 @@ namespace NbaApp.Common.Entities
                 DateOfBirth = null;
             }
         }
-        #endregion
-
-        #region Methods
-        public void AddCareerInfo(PlayerCareerInfo careerInfo) => CareerInfo = careerInfo;
-        public void AddStatsInfo(PlayerStats stats) => Stats = stats;
-        #endregion
     }
 }

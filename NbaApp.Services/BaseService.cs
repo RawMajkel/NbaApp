@@ -3,7 +3,7 @@ using NbaApp.Persistance;
 
 namespace NbaApp.Services
 {
-    public class BaseService
+    public abstract class BaseService
     {
         protected readonly Context _context;
         protected IConfiguration _configuration;

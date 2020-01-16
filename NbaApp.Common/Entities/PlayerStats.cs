@@ -2,12 +2,8 @@
 
 namespace NbaApp.Common.Entities
 {
-    public class PlayerStats
+    public class PlayerStats : BaseEntity
     {
-        #region Properties
-        public Guid Id { get; set; } = Guid.NewGuid();
-
-        /* --- basic --- */
         public int GamesPlayed { get; set; }
         public int GamesStarted { get; set; }
         public int Minutes { get; set; }
@@ -41,9 +37,7 @@ namespace NbaApp.Common.Entities
         public double FoulsPerGame { get; set; }
         public double TurnoversPerGame { get; set; }
         public double PointsPerGame { get; set; }
-        #endregion
 
-        #region Constructors
         public PlayerStats()
         {
 
@@ -88,9 +82,7 @@ namespace NbaApp.Common.Entities
                 PointsPerGame = Math.Round(Points * 1.0 / GamesPlayed, 2);
             }
         }
-        #endregion
 
-        #region Methods
         private static int RepairStat(string stat)
         {
             if (string.IsNullOrEmpty(stat))
@@ -101,6 +93,5 @@ namespace NbaApp.Common.Entities
             var temp = int.Parse(stat);
             return temp < 0 ? 0 : temp;
         }
-        #endregion
     }
 }

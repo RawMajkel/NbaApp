@@ -1,10 +1,10 @@
 ﻿namespace NbaApp.Web.Responses
 {
-    public class InfoResponse
+    public class AppResponse
     {
         public string UpdateDate { get; set; }
 
-        public InfoResponse(string updateDate)
+        public AppResponse(string updateDate)
         {
             UpdateDate = updateDate;
         }
