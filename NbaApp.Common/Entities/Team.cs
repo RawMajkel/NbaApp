@@ -10,7 +10,7 @@ namespace NbaApp.Common.Entities
         public string Abbreviation { get; set; }
         public string Conference { get; set; }
         public string Division { get; set; }
-        public Guid StatisticsId { get; set; }
+        public Guid StatsId { get; set; }
         public virtual TeamStats Stats { get; set; }
 
         public Team()
