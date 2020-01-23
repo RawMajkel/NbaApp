@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NbaApp.Web.Controllers
 {
-    [Route("api/")]
+    [Route("api")]
     [ApiController]
     public class AppController : BaseController
     {

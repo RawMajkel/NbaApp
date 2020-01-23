@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using NbaApp.Common.Entities;
 using NbaApp.Persistance;
 using System;
@@ -55,11 +56,11 @@ namespace NbaApp.Services
         public async Task<TEntity> GetEntityById<TEntity>(Guid id)
             where TEntity : BaseEntity
         {
-            return await Task.FromResult(_context.Set<TEntity>().FirstOrDefault(x => x.Id == id));
+            return await _context.Set<TEntity>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Player>> GetPlayersFromTeam(Guid teamId) => await Task.FromResult(_context.Players.Where(x => x.CurrentTeam == teamId));
-        public async Task<Team> GetTeamByNickName(string nickName) => await Task.FromResult(_context.Teams.FirstOrDefault(x => x.NickName == nickName));
+        public async Task<Team> GetTeamByNickName(string nickName) => await _context.Teams.FirstOrDefaultAsync(x => x.NickName == nickName);
         public async Task<Player> GetPlayerByName(string firstName, string lastName)
         {
             if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
@@ -67,8 +68,7 @@ namespace NbaApp.Services
                 return null;
             }
 
-            var player = await Task.FromResult(_context.Players.FirstOrDefault(x => x.FirstName == firstName && x.LastName == lastName));
-            return player;
+            return await _context.Players.FirstOrDefaultAsync(x => x.FirstName == firstName && x.LastName == lastName);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Net;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace NbaApp.Services
 {
@@ -43,7 +44,7 @@ namespace NbaApp.Services
             await LoadTeams();
             await LoadPlayers(true);
 
-            _context.AppInfo.Add(new AppInfo());
+            await _context.AppInfo.AddAsync(new AppInfo());
             await _context.SaveChangesAsync();
         }
 
@@ -72,7 +73,7 @@ namespace NbaApp.Services
 
                 team.Stats = stats;
 
-                _context.TeamStats.Add(stats);
+                await _context.TeamStats.AddAsync(stats);
             }
 
             await _context.SaveChangesAsync();
@@ -109,8 +110,8 @@ namespace NbaApp.Services
             //player.Player.AddCareerInfo(player.PlayerCareerInfo);
             player.Player.CareerInfo = player.PlayerCareerInfo;
 
-            _context.Players.Add(player.Player);
-            _context.PlayerCareerInfos.Add(player.PlayerCareerInfo);
+            await _context.Players.AddAsync(player.Player);
+            await _context.PlayerCareerInfos.AddAsync(player.PlayerCareerInfo);
 
             await _context.SaveChangesAsync();
 
@@ -180,9 +181,9 @@ namespace NbaApp.Services
 
                 player.Player.Stats = stats;
 
-                _context.Players.Add(player.Player);
-                _context.PlayerCareerInfos.Add(player.PlayerCareerInfo);
-                _context.PlayerStats.Add(stats);
+                await _context.Players.AddAsync(player.Player);
+                await _context.PlayerCareerInfos.AddAsync(player.PlayerCareerInfo);
+                await _context.PlayerStats.AddAsync(stats);
 
                 await _context.SaveChangesAsync();
             }
@@ -212,23 +213,19 @@ namespace NbaApp.Services
                 statsData.League.Standard.Stats.Latest.Fouls,
                 statsData.League.Standard.Stats.Latest.Turnovers);
 
-            var player = await Task.FromResult(_context.Players
-                .Where(x => x.NbaNetId == nbaNetID)
-                .FirstOrDefault());
+            var player = await _context.Players.Where(x => x.NbaNetId == nbaNetID).FirstOrDefaultAsync();
 
             player.Stats = stats;
-
-            _context.PlayerStats.Add(stats);
-
+            await _context.PlayerStats.AddAsync(stats);
             await _context.SaveChangesAsync();
         }
 
         public async Task<Guid> GetTeamID(string nbaNetId)
         {
-            return await Task.FromResult(_context.Teams
+            return await _context.Teams
                 .Where(x => x.NbaNetId == nbaNetId)
                 .Select(x => x.Id)
-                .FirstOrDefault());
+                .FirstOrDefaultAsync();
         }
     }
 }
