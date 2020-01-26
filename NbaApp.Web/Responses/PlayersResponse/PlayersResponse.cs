@@ -4,7 +4,7 @@ namespace NbaApp.Web.Responses
 {
     public class PlayersResponse
     {
-        public List<PlayerResponse> Players { get; set; }
+        public IEnumerable<PlayerResponse> Players { get; set; }
         public EntityInfo Meta { get; set; }
 
         public PlayersResponse()

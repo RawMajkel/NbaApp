@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNet.OData;
+using Microsoft.AspNetCore.Mvc;
 using NbaApp.Common.Entities;
 using NbaApp.Services;
 using NbaApp.Web.Responses;
@@ -19,6 +20,7 @@ namespace NbaApp.Web.Controllers
         }
 
         [HttpGet("players")]
+        [EnableQuery()]
         public async Task<ActionResult<PlayersResponse>> GetAllPlayers([FromQuery(Name = "perPage")] int perPage = 0, [FromQuery(Name = "page")] int page = 0)
         {
             var players = await _apiService.Get<Player>(perPage, page);
@@ -127,41 +129,6 @@ namespace NbaApp.Web.Controllers
                 player.Stats.FieldGoalsAttempted, player.Stats.FieldGoalsMade, player.Stats.FieldGoalPercentage,
                 player.Stats.ThreePointersAttempted, player.Stats.ThreePointersMade, player.Stats.ThreePointersPercentage,
                 player.Stats.FreeThrowsAttempted, player.Stats.FreeThrowsMade, player.Stats.FreeThrowsPercentage
-            );
-        }
-
-        [HttpGet("player/{firstName}/{lastName}")]
-        public async Task<ActionResult<PlayerResponse>> GetPlayer(string firstName, string lastName)
-        {
-            var player = await _apiService.GetPlayerByName(firstName, lastName);
-
-            if (player is null)
-            {
-                return NotFound();
-            }
-
-            return new PlayerResponse(
-                player.Id,
-                player.NbaNetId,
-                player.FirstName,
-                player.LastName,
-                player.DateOfBirth,
-                player.Age,
-                player.HeightMetric,
-                player.HeightFeet,
-                player.HeightInches,
-                player.WeightPounds,
-                player.WeightKilograms,
-                player.CurrentTeam,
-                player.CareerInfo.College,
-                player.CareerInfo.Country,
-                player.CareerInfo.JerseyNumber,
-                player.CareerInfo.YearsPro,
-                player.CareerInfo.Position,
-                player.CareerInfo.DraftYear,
-                player.CareerInfo.DraftRound,
-                player.CareerInfo.DraftPick,
-                player.CareerInfo.DraftTeam
             );
         }
 

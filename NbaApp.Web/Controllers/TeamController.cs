@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNet.OData;
+using Microsoft.AspNetCore.Mvc;
 using NbaApp.Common.Entities;
 using NbaApp.Services;
 using NbaApp.Web.Responses;
@@ -18,6 +19,7 @@ namespace NbaApp.Web.Controllers
         }
 
         [HttpGet("teams")]
+        [EnableQuery]
         public async Task<ActionResult<TeamsResponse>> GetTeams([FromQuery(Name = "perPage")] int perPage = 0, [FromQuery(Name = "page")] int page = 0)
         {
             var teams = await _apiService.Get<Team>(perPage, page);

@@ -20,7 +20,6 @@ namespace NbaApp.Web.Controllers
         public async Task<ActionResult<AppResponse>> GetAppInfo()
         {
             var info = await _apiService.Get<AppInfo>();
-
             return new AppResponse(string.Format("{0:dd-MM-yyyy}", info.FirstOrDefault().UpdateDate));
         }
     }

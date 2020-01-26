@@ -38,8 +38,8 @@ namespace NbaApp.Services
 
         public async Task UpdateDatabase()
         {
-            _context.Database.EnsureDeleted();
-            _context.Database.EnsureCreated();
+            await _context.Database.EnsureDeletedAsync();
+            await _context.Database.EnsureCreatedAsync();
 
             await LoadTeams();
             await LoadPlayers(true);
@@ -107,7 +107,6 @@ namespace NbaApp.Services
                  ))
                 .FirstOrDefault());
 
-            //player.Player.AddCareerInfo(player.PlayerCareerInfo);
             player.Player.CareerInfo = player.PlayerCareerInfo;
 
             await _context.Players.AddAsync(player.Player);

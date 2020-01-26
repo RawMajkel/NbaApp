@@ -34,7 +34,6 @@
         public double FreeThrowsPercentage { get; set; }
         #endregion
 
-        #region Constructors
         public PlayerStatsResponse(int gamesPlayed, int gamesStarted, int minutes, double minutesPerGame, int points, double pointsPerGame, int assists, double assistsPerGame, int offensiveRebounds,
             int defensiveRebounds, int rebounds, double reboundsPerGame, int blocks, double blocksPerGame, int steals, double stealsPerGame, int fouls, double foulsPerGame, int turnovers,
             double turnoversPerGame, int fieldGoalsAttempted, int fieldGoalsMade, double fieldGoalPercentage, int threePointersAttempted, int threePointersMade, double threePointersPercentage,
@@ -70,6 +69,5 @@
             FreeThrowsMade = freeThrowsMade;
             FreeThrowsPercentage = freeThrowsPercentage;
         }
-        #endregion
     }
 }
